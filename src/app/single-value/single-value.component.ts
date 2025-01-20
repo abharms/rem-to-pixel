@@ -1,22 +1,20 @@
+// single-value/single-value.component.ts
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, signal } from '@angular/core';
+import { ConverterService } from '../converter.service';
 
 @Component({
 	selector: 'app-single-value',
-	imports: [CommonModule, ReactiveFormsModule],
 	standalone: true,
-	templateUrl: './single-value.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	imports: [CommonModule],
+	templateUrl: './single-value.component.html'
 })
 export class SingleValueComponent {
-	baseFontSize = input<number>();
-	baseFontSizeChange = output<number>();
-
-	private _baseFontSize = signal<number>(16);
 	remValue = signal<string>('');
 	pixelValue = signal<string>('');
 	conversionType = signal<'remToPx' | 'pxToRem'>('remToPx');
+
+	constructor(public converterService: ConverterService) {}
 
 	handleInputChange(event: Event, isFirstInput: boolean) {
 		const newValue = (event.target as HTMLInputElement).value;
@@ -26,7 +24,7 @@ export class SingleValueComponent {
 			// Handling REM input
 			this.remValue.set(newValue);
 			if (newValue) {
-				const pixels = (parseFloat(newValue) * this._baseFontSize()).toFixed(2);
+				const pixels = (parseFloat(newValue) * this.converterService.baseFontSize()).toFixed(2);
 				this.pixelValue.set(pixels);
 			} else {
 				this.pixelValue.set('');
@@ -35,7 +33,7 @@ export class SingleValueComponent {
 			// Handling Pixel input
 			this.pixelValue.set(newValue);
 			if (newValue) {
-				const rems = (parseFloat(newValue) / this._baseFontSize()).toFixed(4);
+				const rems = (parseFloat(newValue) / this.converterService.baseFontSize()).toFixed(4);
 				this.remValue.set(rems);
 			} else {
 				this.remValue.set('');
@@ -53,8 +51,7 @@ export class SingleValueComponent {
 	onBaseFontSizeInput(event: Event) {
 		const value = +(event.target as HTMLInputElement).value;
 		if (!isNaN(value) && value > 0) {
-			this._baseFontSize.set(value);
-			this.baseFontSizeChange.emit(value);
+			this.converterService.updateBaseFontSize(value);
 			this.updateCalculations();
 		}
 	}
@@ -62,10 +59,10 @@ export class SingleValueComponent {
 	private updateCalculations() {
 		const isRemToPx = this.conversionType() === 'remToPx';
 		if (isRemToPx && this.remValue()) {
-			const pixels = (parseFloat(this.remValue()) * this._baseFontSize()).toFixed(2);
+			const pixels = (parseFloat(this.remValue()) * this.converterService.baseFontSize()).toFixed(2);
 			this.pixelValue.set(pixels);
 		} else if (!isRemToPx && this.pixelValue()) {
-			const rems = (parseFloat(this.pixelValue()) / this._baseFontSize()).toFixed(4);
+			const rems = (parseFloat(this.pixelValue()) / this.converterService.baseFontSize()).toFixed(4);
 			this.remValue.set(rems);
 		}
 	}

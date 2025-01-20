@@ -14,20 +14,20 @@
 				<div class="flex gap-4">
 					<button
 						type="button"
-						(click)="setConverterType('single')"
-						[class.bg-indigo-500]="converterType() === 'single'"
-						[class.text-white]="converterType() === 'single'"
-						[class.bg-gray-100]="converterType() !== 'single'"
+						[routerLink]="['/single-value']"
+						[class.bg-indigo-500]="isActive('single-value')"
+						[class.text-white]="isActive('single-value')"
+						[class.bg-gray-100]="!isActive('single-value')"
 						class="px-4 py-2 rounded-xl font-medium transition-all hover:shadow-md"
 					>
 						Single Value
 					</button>
 					<button
 						type="button"
-						(click)="setConverterType('batch')"
-						[class.bg-indigo-500]="converterType() === 'batch'"
-						[class.text-white]="converterType() === 'batch'"
-						[class.bg-gray-100]="converterType() !== 'batch'"
+						[routerLink]="['/batch-convert']"
+						[class.bg-indigo-500]="isActive('batch-convert')"
+						[class.text-white]="isActive('batch-convert')"
+						[class.bg-gray-100]="!isActive('batch-convert')"
 						class="px-4 py-2 rounded-xl font-medium transition-all hover:shadow-md"
 					>
 						Batch Convert
@@ -35,14 +35,10 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- Converter Components -->
-		<div [ngSwitch]="converterType()">
-			<app-single-value *ngSwitchCase="'single'" [baseFontSize]="baseFontSize()" (baseFontSizeChange)="updateBaseFontSize($event)"></app-single-value>
-
-			<app-batch-converter *ngSwitchCase="'batch'" [baseFontSize]="baseFontSize()" (baseFontSizeChange)="updateBaseFontSize($event)"></app-batch-converter>
+		<div>
+			<!-- Router Outlet for Converter Components -->
+			<router-outlet></router-outlet>
 		</div>
-
 		<!-- Quick reference -->
 		<div class="bg-white rounded-3xl shadow-xl p-8">
 			<h2 class="text-xl font-semibold text-gray-800 mb-5">Quick Reference</h2>

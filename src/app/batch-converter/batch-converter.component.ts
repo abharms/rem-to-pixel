@@ -1,42 +1,29 @@
-import { Component, computed, input, output, signal } from '@angular/core';
-
-const formatNumber = (num: number): string => {
-	// First convert to fixed number of decimal places
-	const withDecimals = num.toFixed(4); // Use 4 for rems, will trim if not needed
-	// Remove trailing zeros and decimal point if not needed
-	return withDecimals.replace(/\.?0+$/, '');
-};
+// batch-converter/batch-converter.component.ts
+import { CommonModule } from '@angular/common';
+import { Component, signal } from '@angular/core';
+import { ConverterService } from '../converter.service';
 
 @Component({
 	selector: 'app-batch-converter',
-	imports: [],
+	standalone: true,
+	imports: [CommonModule],
 	templateUrl: './batch-converter.component.html'
 })
 export class BatchConverterComponent {
-	baseFontSize = input<number>();
-	baseFontSizeChange = output<number>();
-
-	private _baseFontSize = signal<number>(16);
 	conversionType = signal<'remToPx' | 'pxToRem'>('remToPx');
 	inputText = signal<string>('');
 	convertedText = signal<string>('');
 
-	// Computed placeholder based on conversion type
-	inputPlaceholder = computed(() => {
-		const type = this.conversionType();
-		if (type === 'remToPx') {
-			return `Paste your CSS here... 
-Example:
-margin: 1rem;
-padding: 1.5rem 2rem;
-font-size: 0.875rem;`;
-		}
-		return `Paste your CSS here... 
-Example:
-margin: 16px;
-padding: 24px 32px;
-font-size: 14px;`;
-	});
+	constructor(public converterService: ConverterService) {}
+
+	// Helper function to format numbers without trailing zeros
+	private formatNumber(num: number): string {
+		const withDecimals =
+			this.conversionType() === 'remToPx'
+				? num.toFixed(2) // Pixels get 2 decimal places max
+				: num.toFixed(4); // REMs get 4 decimal places max
+		return withDecimals.replace(/\.?0+$/, '');
+	}
 
 	setConversionType(type: 'remToPx' | 'pxToRem') {
 		this.conversionType.set(type);
@@ -46,8 +33,11 @@ font-size: 14px;`;
 	onBaseFontSizeInput(event: Event) {
 		const value = +(event.target as HTMLInputElement).value;
 		if (!isNaN(value) && value > 0) {
-			this._baseFontSize.set(value);
-			this.baseFontSizeChange.emit(value);
+			this.converterService.updateBaseFontSize(value);
+			// Reconvert if there's existing input
+			if (this.convertedText()) {
+				this.convertValues();
+			}
 		}
 	}
 
@@ -59,7 +49,7 @@ font-size: 14px;`;
 
 	convertValues() {
 		const input = this.inputText();
-		const baseFontSize = this._baseFontSize();
+		const baseFontSize = this.converterService.baseFontSize();
 
 		if (!input) return;
 
@@ -68,13 +58,13 @@ font-size: 14px;`;
 		if (this.conversionType() === 'remToPx') {
 			// Convert rem to px
 			converted = converted.replace(/(\d*\.?\d+)rem/g, (match, rems) => {
-				const pixels = formatNumber(parseFloat(rems) * baseFontSize);
+				const pixels = this.formatNumber(parseFloat(rems) * baseFontSize);
 				return `${pixels}px`;
 			});
 		} else {
 			// Convert px to rem
 			converted = converted.replace(/(\d+)px/g, (match, pixels) => {
-				const rems = formatNumber(parseInt(pixels) / baseFontSize);
+				const rems = this.formatNumber(parseInt(pixels) / baseFontSize);
 				return `${rems}rem`;
 			});
 		}
@@ -86,11 +76,26 @@ font-size: 14px;`;
 		navigator.clipboard
 			.writeText(this.convertedText())
 			.then(() => {
-				// Could add a toast notification here
 				console.log('Copied to clipboard');
+				// Could add a toast notification here
 			})
 			.catch((err) => {
 				console.error('Failed to copy text: ', err);
 			});
+	}
+
+	// Computed value for placeholder text based on conversion type
+	get inputPlaceholder(): string {
+		return this.conversionType() === 'remToPx'
+			? `Paste your CSS here... 
+Example:
+margin: 1rem;
+padding: 1.5rem 2rem;
+font-size: 0.875rem;`
+			: `Paste your CSS here... 
+Example:
+margin: 16px;
+padding: 24px 32px;
+font-size: 14px;`;
 	}
 }
