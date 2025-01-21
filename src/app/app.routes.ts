@@ -2,6 +2,7 @@
 import { Routes } from '@angular/router';
 import { BatchConverterComponent } from './batch-converter/batch-converter.component';
 import { SingleValueComponent } from './single-value/single-value.component';
+import { VisualPreviewComponent } from './visual-preview/visual-preview.component';
 
 export const routes: Routes = [
 	{
@@ -18,6 +19,11 @@ export const routes: Routes = [
 		path: 'batch-convert',
 		component: BatchConverterComponent,
 		title: 'REM to Pixel Converter - Batch Convert'
+	},
+	{
+		path: 'visual-preview',
+		component: VisualPreviewComponent,
+		title: 'REM to Pixel Converter - Visual Preview'
 	},
 	{
 		path: '**',

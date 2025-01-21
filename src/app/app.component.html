@@ -8,6 +8,7 @@
 		</div>
 
 		<!-- Converter Type Selection -->
+		<!-- Converter Type Selection -->
 		<div class="bg-white rounded-3xl shadow-xl border-gray-100 p-8">
 			<div class="mb-6">
 				<label class="block text-lg font-semibold text-gray-700 mb-3">Converter Type</label>
@@ -34,11 +35,37 @@
 					</button>
 				</div>
 			</div>
+
+			<!-- Visual Preview Button -->
+			<div class="mt-4 pt-4 border-t border-gray-100">
+				<button
+					type="button"
+					[routerLink]="['/visual-preview']"
+					[class.text-indigo-600]="isActive('visual-preview')"
+					class="group flex items-center gap-2 text-gray-600 hover:text-indigo-600 transition-colors"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-5 w-5 transition-transform group-hover:scale-110"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+						/>
+					</svg>
+					<span>Visual Size Preview</span>
+					<span class="text-xs ml-2 text-gray-400 group-hover:text-indigo-400">See how different REM values look</span>
+				</button>
+			</div>
 		</div>
-		<div>
-			<!-- Router Outlet for Converter Components -->
-			<router-outlet></router-outlet>
-		</div>
+
+		<div><router-outlet></router-outlet></div>
 		<!-- Quick reference -->
 		<div class="bg-white rounded-3xl shadow-xl p-8">
 			<h2 class="text-xl font-semibold text-gray-800 mb-5">Quick Reference</h2>
