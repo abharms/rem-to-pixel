@@ -6,20 +6,18 @@
 			<h1 class="text-5xl font-extrabold text-indigo-600 mb-3 text-shadow-md">REM to Pixel Converter</h1>
 			<p class="text-lg text-gray-700">Easily convert between rems and pixels</p>
 		</div>
-
-		<!-- Converter Type Selection -->
 		<!-- Converter Type Selection -->
 		<div class="bg-white rounded-3xl shadow-xl border-gray-100 p-8">
 			<div class="mb-6">
 				<label class="block text-lg font-semibold text-gray-700 mb-3">Converter Type</label>
-				<div class="flex gap-4">
+				<div class="flex flex-col sm:flex-row gap-4">
 					<button
 						type="button"
 						[routerLink]="['/single-value']"
 						[class.bg-indigo-500]="isActive('single-value')"
 						[class.text-white]="isActive('single-value')"
 						[class.bg-gray-100]="!isActive('single-value')"
-						class="px-4 py-2 rounded-xl font-medium transition-all hover:shadow-md"
+						class="px-4 py-2 rounded-xl font-medium transition-all hover:shadow-md flex-1"
 					>
 						Single Value
 					</button>
@@ -29,9 +27,27 @@
 						[class.bg-indigo-500]="isActive('batch-convert')"
 						[class.text-white]="isActive('batch-convert')"
 						[class.bg-gray-100]="!isActive('batch-convert')"
-						class="px-4 py-2 rounded-xl font-medium transition-all hover:shadow-md"
+						class="px-4 py-2 rounded-xl font-medium transition-all hover:shadow-md flex-1"
 					>
 						Batch Convert
+					</button>
+					<button
+						type="button"
+						[routerLink]="['/framework-presets']"
+						[class.bg-indigo-500]="isActive('framework-presets')"
+						[class.text-white]="isActive('framework-presets')"
+						[class.bg-gray-100]="!isActive('framework-presets')"
+						class="px-4 py-2 rounded-xl font-medium transition-all hover:shadow-md flex-1 flex items-center justify-center gap-2"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+							/>
+						</svg>
+						Framework Presets
 					</button>
 				</div>
 			</div>
