@@ -1,17 +1,13 @@
 // framework-presets/framework-presets.component.ts
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { ConverterService } from '../converter.service';
-import { BootstrapPresetsComponent } from './bootstrap-presets/bootstrap-presets.component';
-import { TailwindPresetsComponent } from './tailwind-presets/tailwind-presets.component';
 
 export enum FrameworkType {
 	TAILWIND = 'tailwind',
 	BOOTSTRAP = 'bootstrap',
-	MATERIAL = 'material',
-	ANT_DESIGN = 'antd',
-	CHAKRA = 'chakra',
-	ELEMENT = 'element'
+	MATERIAL = 'material'
 }
 
 export interface Framework {
@@ -25,7 +21,7 @@ export interface Framework {
 @Component({
 	selector: 'app-framework-presets',
 	standalone: true,
-	imports: [BootstrapPresetsComponent, CommonModule, TailwindPresetsComponent],
+	imports: [CommonModule, RouterModule],
 	templateUrl: './framework-presets.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -59,13 +55,19 @@ export class FrameworkPresetsComponent {
 	selectedFrameworkName = computed(() => {
 		const selected = this.selectedFramework();
 		if (!selected) return '';
-		console.log(this.frameworks.find((f) => f.id === selected)?.name || '');
 		return this.frameworks.find((f) => f.id === selected)?.name || '';
 	});
 
-	constructor(public converterService: ConverterService) {}
+	constructor(
+		public converterService: ConverterService,
+		private router: Router
+	) {}
 
-	selectFramework(framework: FrameworkType) {
-		this.selectedFramework.set(framework);
+	// selectFramework(framework: FrameworkType) {
+	// 	this.selectedFramework.set(framework);
+	// }
+
+	isRouteActive(frameworkId: string): boolean {
+		return this.router.url.includes(`/framework-presets/${frameworkId}`);
 	}
 }

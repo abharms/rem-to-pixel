@@ -6,22 +6,18 @@
 	<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 		@for (framework of frameworks; track framework.id) {
 			<button
-				(click)="selectFramework(framework.id)"
-				[class.ring-2]="selectedFramework() === framework.id"
-				[class.ring-indigo-500]="selectedFramework() === framework.id"
+				[routerLink]="[framework.id]"
+				routerLinkActive="ring-2 ring-indigo-500"
 				class="relative flex flex-col items-start p-6 rounded-2xl border border-gray-200 hover:border-indigo-200 transition-all hover:shadow-md"
 			>
 				<!-- Framework Logo -->
 				<div class="w-12 h-12 mb-4">
 					<svg
-						[class.text-indigo-500]="selectedFramework() === framework.id"
+						[class.text-indigo-500]="isRouteActive(framework.id)"
 						[ngClass]="{
-							'text-[#0073E6]': framework.id === 'material' && selectedFramework() !== framework.id,
-							'text-[#7C13F6]': framework.id === 'bootstrap' && selectedFramework() !== framework.id,
-							'text-[#06B6D4]': framework.id === 'tailwind' && selectedFramework() !== framework.id,
-							'text-[#1677FF]': framework.id === 'antd' && selectedFramework() !== framework.id,
-							'text-[#319795]': framework.id === 'chakra' && selectedFramework() !== framework.id,
-							'text-[#409EFF]': framework.id === 'element' && selectedFramework() !== framework.id
+							'text-[#0073E6]': framework.id === 'material' && !isRouteActive(framework.id),
+							'text-[#7C13F6]': framework.id === 'bootstrap' && !isRouteActive(framework.id),
+							'text-[#06B6D4]': framework.id === 'tailwind' && !isRouteActive(framework.id)
 						}"
 						class="w-full h-full"
 						viewBox="0 0 24 24"
@@ -41,7 +37,7 @@
 				</div>
 
 				<!-- Selected Indicator -->
-				@if (selectedFramework() === framework.id) {
+				@if (isRouteActive(framework.id)) {
 					<div class="absolute top-4 right-4">
 						<svg class="w-6 h-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -52,20 +48,8 @@
 		}
 	</div>
 
-	<!-- Content Area -->
-	@if (selectedFramework()) {
-		<div class="mt-8 pt-8 border-t border-gray-100">
-			@switch (selectedFrameworkName()) {
-				@case ('Tailwind CSS') {
-					<fp-tailwind-presets></fp-tailwind-presets>
-				}
-				@case ('Bootstrap') {
-					<fp-bootstrap-presets></fp-bootstrap-presets>
-				}
-				@default {
-					<div class="text-center text-gray-500">Content for {{ selectedFrameworkName() }} coming soon!</div>
-				}
-			}
-		</div>
-	}
+	<!-- Router Outlet for Framework Content -->
+	<div class="mt-8 pt-8 border-t border-gray-100">
+		<router-outlet></router-outlet>
+	</div>
 </div>

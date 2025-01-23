@@ -3,12 +3,12 @@
 	<div class="flex flex-wrap gap-3">
 		@for (category of categories; track category.name) {
 			<button
-				(click)="selectCategory(category)"
+				[routerLink]="[getRouteForCategory(category.name)]"
+				routerLinkActive="bg-indigo-500 text-white"
+				[routerLinkActiveOptions]="{ exact: true }"
 				class="px-4 py-2 rounded-xl transition-all"
-				[class.bg-indigo-500]="selectedCategory().name === category.name"
-				[class.text-white]="selectedCategory().name === category.name"
-				[class.bg-gray-100]="selectedCategory().name !== category.name"
-				[class.hover:bg-gray-200]="selectedCategory().name !== category.name"
+				[class.bg-gray-100]="!isRouteActive(category.name)"
+				[class.hover:bg-gray-200]="!isRouteActive(category.name)"
 			>
 				{{ category.name }}
 			</button>
@@ -120,6 +120,11 @@
 									{{ entry.name }}
 								}
 							}
+						</div>
+
+						<!-- Preview -->
+						<div class="mb-3 py-2">
+							<div [innerHTML]="getPreview(entry)"></div>
 						</div>
 
 						<!-- Conversion values -->

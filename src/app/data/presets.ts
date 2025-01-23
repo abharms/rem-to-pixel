@@ -76,11 +76,16 @@ export const tailwindPresets: FrameworkPresets = {
 		},
 		{
 			name: 'Width & Height',
-			description: 'Sizing utilities for width and height',
-			usage: '{w|h}-{size}',
-			commonUses: ['w-25 for 25% width', 'h-100 for 100% height', 'w-auto for auto width', 'mw-100 for max-width 100%'],
-			specialValues: ['vh-100 for viewport height', 'vw-100 for viewport width', 'min-vh-100 for minimum viewport height'],
-			notes: 'Bootstrap primarily uses percentages for width/height, with some utilities in rems',
+			description: 'Fixed and responsive sizing utilities',
+			usage: 'w-{size}, h-{size}',
+			commonUses: [
+				'w-4 for small fixed widths (1rem, 16px)',
+				'h-6 for small fixed heights (1.5rem, 24px)',
+				'w-full for 100% width',
+				'h-screen for viewport height'
+			],
+			specialValues: ['w-auto for auto width', 'h-fit for fit-content', 'w-screen for 100vw', 'min-w-{size}, max-w-{size} for constraints'],
+			notes: 'Tailwind uses the same spacing scale for width/height as padding and margin, making it easy to create consistent layouts',
 			values: {
 				'25': { rem: null, px: null, value: '25%' },
 				'50': { rem: null, px: null, value: '50%' },
@@ -207,6 +212,94 @@ export const bootstrapPresets: FrameworkPresets = {
 				'3': { rem: 1, px: 16 },
 				'4': { rem: 1.5, px: 24 },
 				'5': { rem: 3, px: 48 }
+			}
+		}
+	]
+};
+
+export const materialPresets: FrameworkPresets = {
+	name: 'Material UI',
+	categories: [
+		{
+			name: 'Typography',
+			description: "Material UI's type scale with adaptive font sizing",
+			usage: 'typography={variant}',
+			commonUses: [
+				"Typography variant='h1' for main headlines",
+				"Typography variant='body1' for main text",
+				"Typography variant='caption' for auxiliary text",
+				"Typography variant='subtitle1' for featured text"
+			],
+			relatedClasses: ['theme.typography.{variant}', "sx={{ typography: '{variant}' }}"],
+			notes: 'Material UI typography adapts automatically at different breakpoints for optimal readability',
+			values: {
+				h1: { rem: 6, px: 96 },
+				h2: { rem: 3.75, px: 60 },
+				h3: { rem: 3, px: 48 },
+				h4: { rem: 2.125, px: 34 },
+				h5: { rem: 1.5, px: 24 },
+				h6: { rem: 1.25, px: 20 },
+				subtitle1: { rem: 1, px: 16 },
+				subtitle2: { rem: 0.875, px: 14 },
+				body1: { rem: 1, px: 16 },
+				body2: { rem: 0.875, px: 14 },
+				button: { rem: 0.875, px: 14 },
+				caption: { rem: 0.75, px: 12 },
+				overline: { rem: 0.75, px: 12 }
+			}
+		},
+		{
+			name: 'Spacing',
+			description: '8-point grid system using the spacing() function',
+			usage: 'spacing({multiplier})',
+			commonUses: [
+				'spacing(2) for default gaps (16px)',
+				'spacing(1) for tight spacing (8px)',
+				'spacing(3) for comfortable spacing (24px)',
+				'padding: theme.spacing(2)'
+			],
+			relatedClasses: ['theme.spacing({value})', 'sx={{ p: {value} }}'],
+			notes: 'Values are multiplied by 8px to get the final spacing',
+			values: {
+				'0': { rem: 0, px: 0 },
+				'1': { rem: 0.5, px: 8 },
+				'2': { rem: 1, px: 16 },
+				'3': { rem: 1.5, px: 24 },
+				'4': { rem: 2, px: 32 },
+				'5': { rem: 2.5, px: 40 },
+				'6': { rem: 3, px: 48 },
+				'7': { rem: 3.5, px: 56 },
+				'8': { rem: 4, px: 64 },
+				'9': { rem: 4.5, px: 72 },
+				'10': { rem: 5, px: 80 }
+			}
+		},
+		{
+			name: 'Breakpoints',
+			description: 'Responsive design breakpoints',
+			usage: "useMediaQuery(theme.breakpoints.up('md'))",
+			commonUses: ['xs for phones (0px+)', 'sm for tablets (600px+)', 'md for small laptops (900px+)', 'lg for desktops (1200px+)'],
+			relatedClasses: ['theme.breakpoints.up()', 'theme.breakpoints.down()', 'theme.breakpoints.between()'],
+			notes: 'Breakpoints use a mobile-first approach starting from xs',
+			values: {
+				xs: { rem: null, px: null, value: '0px' },
+				sm: { rem: null, px: null, value: '600px' },
+				md: { rem: null, px: null, value: '900px' },
+				lg: { rem: null, px: null, value: '1200px' },
+				xl: { rem: null, px: null, value: '1536px' }
+			}
+		},
+		{
+			name: 'Component Sizes',
+			description: 'Default sizes for components like buttons, icons, and inputs',
+			usage: 'size={size}',
+			commonUses: ['small for compact components', 'medium for standard components', 'large for featured components'],
+			relatedClasses: ["IconButton size='small'", "Button size='large'", "TextField size='medium'"],
+			notes: 'Most Material UI components support these three standard sizes',
+			values: {
+				small: { rem: 1.75, px: 28 },
+				medium: { rem: 2.25, px: 36 },
+				large: { rem: 2.75, px: 44 }
 			}
 		}
 	]
