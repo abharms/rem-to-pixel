@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, effect, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { materialPresets, PresetCategory, UnitValue } from '../../data/presets';
+import { PresetRoutingService } from '../preset-routing.service';
 
 interface CopyFormat {
 	label: string;
@@ -18,23 +20,6 @@ interface CopyFormat {
 export class MaterialUiPresetsComponent {
 	categories = materialPresets.categories;
 	selectedCategory = signal<PresetCategory>(materialPresets.categories[0]);
-
-	constructor(
-		private sanitizer: DomSanitizer,
-		private route: ActivatedRoute,
-		private router: Router
-	) {
-		effect(() => {
-			this.route.params.subscribe((params) => {
-				const categorySlug = params['category'] || 'font-sizes';
-				const category = this.getCategoryFromSlug(categorySlug);
-				if (category) {
-					this.selectedCategory.set(category);
-				}
-			});
-		});
-	}
-
 	categoryValues = computed(() => {
 		const category = this.selectedCategory();
 		if (!category?.values) return [];
@@ -44,35 +29,26 @@ export class MaterialUiPresetsComponent {
 			value
 		}));
 	});
+	private destroy$ = new Subject<void>();
 
-	getCategoryFromSlug(slug: string): PresetCategory | undefined {
-		const slugMap: { [key: string]: string } = {
-			'font-sizes': 'Font Sizes',
-			spacing: 'Spacing',
-			'width-and-height': 'Width & Height',
-			gap: 'Gap'
-		};
+	constructor(
+		private sanitizer: DomSanitizer,
+		public presetRoutingService: PresetRoutingService,
+		private router: Router
+	) {
+		this.router.events
+			.pipe(
+				filter((event) => event instanceof NavigationEnd),
+				takeUntil(this.destroy$)
+			)
+			.subscribe(() => {
+				const categorySlug = this.presetRoutingService.getCurrentCategoryFromUrl();
+				const category = this.presetRoutingService.getCategoryFromSlug(categorySlug, this.categories);
 
-		const categoryName = slugMap[slug];
-		return this.categories.find((c) => c.name === categoryName);
-	}
-
-	getSlugFromCategory(categoryName: string): string {
-		return categoryName
-			.toLowerCase()
-			.replace(/[^\w\s-]/g, '') // Remove special characters
-			.replace(/\s+/g, '-'); // Replace spaces with hyphens
-	}
-
-	navigateToCategory(category: PresetCategory): void {
-		const slug = this.getSlugFromCategory(category.name);
-		this.router.navigate([slug], { relativeTo: this.route });
-	}
-
-	isRouteActive(categoryName: string): boolean {
-		const currentSlug = this.route.snapshot.params['category'];
-		const categorySlug = this.getSlugFromCategory(categoryName);
-		return currentSlug === categorySlug;
+				if (category) {
+					this.selectedCategory.set(category);
+				}
+			});
 	}
 
 	displayValue(entry: { name: string; value: UnitValue }): string {

@@ -1,13 +1,16 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { bootstrapPresets, PresetCategory, UnitValue } from '../../data/presets';
+import { PresetRoutingService } from '../preset-routing.service';
 
 @Component({
 	selector: 'fp-bootstrap-presets',
 	imports: [RouterModule],
+	standalone: true,
 	templateUrl: './bootstrap-presets.component.html',
-	styleUrl: './bootstrap-presets.component.css'
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BootstrapPresetsComponent {
 	categories = bootstrapPresets.categories;
@@ -22,19 +25,28 @@ export class BootstrapPresetsComponent {
 			value
 		}));
 	});
+	private destroy$ = new Subject<void>();
 
 	constructor(
 		private sanitizer: DomSanitizer,
+		public presetRoutingService: PresetRoutingService,
 		private router: Router
-	) {}
+	) {
+		this.router.events
+			.pipe(
+				filter((event) => event instanceof NavigationEnd),
+				takeUntil(this.destroy$)
+			)
+			.subscribe(() => {
+				const categorySlug = this.presetRoutingService.getCurrentCategoryFromUrl();
+				const category = this.presetRoutingService.getCategoryFromSlug(categorySlug, this.categories);
 
-	getRouteForCategory(categoryName: string): string {
-		return categoryName.toLowerCase().replace(/\s+/g, '-');
+				if (category) {
+					this.selectedCategory.set(category);
+				}
+			});
 	}
 
-	isRouteActive(categoryName: string): boolean {
-		return this.router.url.includes(this.getRouteForCategory(categoryName));
-	}
 	// Add clipboard copy like you did in the batch converter
 	copyValue(entry: { name: string; value: UnitValue }): void {
 		let textToCopy = '';

@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, OnDestroy, signal } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { PresetCategory, tailwindPresets, UnitValue } from '../../data/presets';
+import { PresetRoutingService } from '../preset-routing.service';
 
 @Component({
 	selector: 'fp-tailwind-presets',
@@ -14,11 +15,20 @@ import { PresetCategory, tailwindPresets, UnitValue } from '../../data/presets';
 export class TailwindPresetsComponent implements OnDestroy {
 	categories = tailwindPresets.categories;
 	selectedCategory = signal<PresetCategory>(tailwindPresets.categories[0]);
+	categoryValues = computed(() => {
+		const category = this.selectedCategory();
+		if (!category?.values) return [];
+
+		return Object.entries(category.values).map(([name, value]) => ({
+			name,
+			value
+		}));
+	});
 	private destroy$ = new Subject<void>();
 
 	constructor(
 		private sanitizer: DomSanitizer,
-		private route: ActivatedRoute,
+		public presetRoutingService: PresetRoutingService,
 		private router: Router
 	) {
 		this.router.events
@@ -27,48 +37,13 @@ export class TailwindPresetsComponent implements OnDestroy {
 				takeUntil(this.destroy$)
 			)
 			.subscribe(() => {
-				// Get the current URL and split it to find the category
-				const urlParts = this.router.url.split('/');
-				const categorySlug = urlParts[urlParts.length - 1] || 'font-sizes';
-				const category = this.getCategoryFromSlug(categorySlug);
+				const categorySlug = this.presetRoutingService.getCurrentCategoryFromUrl();
+				const category = this.presetRoutingService.getCategoryFromSlug(categorySlug, this.categories);
 
 				if (category) {
 					this.selectedCategory.set(category);
 				}
 			});
-	}
-
-	getCategoryFromSlug(slug: string): PresetCategory | undefined {
-		const slugMap: { [key: string]: string } = {
-			'font-sizes': 'Font Sizes',
-			spacing: 'Spacing',
-			'width-and-height': 'Width & Height', // Changed from 'width-height'
-			gap: 'Gap'
-		};
-
-		const categoryName = slugMap[slug];
-		return this.categories.find((c) => c.name === categoryName);
-	}
-
-	getSlugFromCategory(categoryName: string): string {
-		return categoryName
-			.toLowerCase()
-			.replace(/&/g, 'and') // Replace & with 'and' FIRST
-			.replace(/[^\w\s-]/g, '') // Then remove special characters
-			.replace(/\s+/g, '-'); // Finally replace spaces with hyphens
-	}
-
-	navigateToCategory(categoryName: string): void {
-		const slug = this.getSlugFromCategory(categoryName);
-		this.router.navigate([slug], { relativeTo: this.route });
-	}
-
-	isRouteActive(categoryName: string): boolean {
-		const urlParts = this.router.url.split('/');
-		const currentSlug = urlParts[urlParts.length - 1];
-		const categorySlug = this.getSlugFromCategory(categoryName);
-
-		return currentSlug === categorySlug;
 	}
 
 	getPreview(entry: { name: string; value: UnitValue }): SafeHtml {
@@ -131,24 +106,6 @@ export class TailwindPresetsComponent implements OnDestroy {
 		}
 
 		return this.sanitizer.bypassSecurityTrustHtml(html);
-	}
-
-	categoryValues = computed(() => {
-		const category = this.selectedCategory();
-		if (!category?.values) return [];
-
-		return Object.entries(category.values).map(([name, value]) => ({
-			name,
-			value
-		}));
-	});
-
-	getRouteForCategory(categoryName: string): string {
-		return categoryName
-			.toLowerCase()
-			.replace(/&/g, 'and')
-			.replace(/[^\w\s-]/g, '')
-			.replace(/\s+/g, '-');
 	}
 
 	selectCategory(category: PresetCategory): void {

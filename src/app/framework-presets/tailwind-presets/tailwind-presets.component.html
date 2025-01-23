@@ -3,12 +3,12 @@
 	<div class="flex flex-wrap gap-3">
 		@for (category of categories; track category.name) {
 			<button
-				[routerLink]="[getRouteForCategory(category.name)]"
+				[routerLink]="[presetRoutingService.getSlugFromCategory(category.name)]"
 				routerLinkActive="bg-indigo-500 text-white"
 				[routerLinkActiveOptions]="{ exact: true }"
 				class="px-4 py-2 rounded-xl transition-all"
-				[class.bg-gray-100]="!isRouteActive(category.name)"
-				[class.hover:bg-gray-200]="!isRouteActive(category.name)"
+				[class.bg-gray-100]="!presetRoutingService.isRouteActive(category.name)"
+				[class.hover:bg-gray-200]="!presetRoutingService.isRouteActive(category.name)"
 			>
 				{{ category.name }}
 			</button>

@@ -25,7 +25,7 @@ export const BOOTSTRAP_ROUTES: Routes = [
 				component: BootstrapPresetsComponent
 			},
 			{
-				path: 'gap',
+				path: 'gap-gutters',
 				component: BootstrapPresetsComponent
 			}
 		]
