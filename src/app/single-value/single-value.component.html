@@ -62,8 +62,11 @@
 
 		<!-- Arrow icon -->
 		<div class="flex justify-center items-center py-2">
-			<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+			<svg xmlns="http://www.w3.org/2000/svg" class="hidden md:block h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+			</svg>
+			<svg xmlns="http://www.w3.org/2000/svg" class="md:hidden h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17l4 4m0 0l4-4m-4 4V3" />
 			</svg>
 		</div>
 
@@ -82,5 +85,17 @@
 				/>
 			</div>
 		</div>
+	</div>
+	<div class="mt-8 text-center">
+		<p class="text-3xl font-medium text-gray-700">
+			Result:
+			@if (conversionType() === 'remToPx' && remValue()) {
+				<span class="text-indigo-600">{{ pixelValue() }}px</span>
+			} @else if (conversionType() === 'pxToRem' && pixelValue()) {
+				<span class="text-indigo-600">{{ remValue() }}rem</span>
+			} @else {
+				<span class="text-gray-400">--</span>
+			}
+		</p>
 	</div>
 </div>

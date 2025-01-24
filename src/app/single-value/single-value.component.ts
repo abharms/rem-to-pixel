@@ -11,11 +11,16 @@ import { ConverterService } from '../converter.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SingleValueComponent {
-	remValue = signal<string>('');
-	pixelValue = signal<string>('');
+	remValue = signal<string>('1.5');
+	pixelValue = signal<string>('24');
 	conversionType = signal<'remToPx' | 'pxToRem'>('remToPx');
 
 	constructor(public converterService: ConverterService) {}
+
+	// Add this helper function to your component
+	private stripTrailingZeros(num: string): string {
+		return num.replace(/\.?0+$/, '');
+	}
 
 	handleInputChange(event: Event, isFirstInput: boolean) {
 		const newValue = (event.target as HTMLInputElement).value;
@@ -25,7 +30,7 @@ export class SingleValueComponent {
 			// Handling REM input
 			this.remValue.set(newValue);
 			if (newValue) {
-				const pixels = (parseFloat(newValue) * this.converterService.baseFontSize()).toFixed(2);
+				const pixels = this.stripTrailingZeros((parseFloat(newValue) * this.converterService.baseFontSize()).toFixed(2));
 				this.pixelValue.set(pixels);
 			} else {
 				this.pixelValue.set('');
@@ -34,7 +39,7 @@ export class SingleValueComponent {
 			// Handling Pixel input
 			this.pixelValue.set(newValue);
 			if (newValue) {
-				const rems = (parseFloat(newValue) / this.converterService.baseFontSize()).toFixed(4);
+				const rems = this.stripTrailingZeros((parseFloat(newValue) / this.converterService.baseFontSize()).toFixed(4));
 				this.remValue.set(rems);
 			} else {
 				this.remValue.set('');
