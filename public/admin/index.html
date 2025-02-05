@@ -4,16 +4,12 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Content Manager</title>
-		<!-- Make sure to use defer attribute -->
-		<script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-		<script defer src="https://unpkg.com/@staticcms/core@3.4.5/dist/static-cms-app.js"></script>
 	</head>
 	<body>
-		<div id="nc-root"></div>
-		<script>
-			window.addEventListener('load', function () {
-				window.CMS.init()
-			})
-		</script>
+		<!-- Loading the Identity Widget -->
+		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+		<!-- Loading Decap CMS -->
+		<script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
 	</body>
 </html>
