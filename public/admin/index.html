@@ -4,13 +4,17 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Content Manager</title>
-		<!-- Identity widget script must come BEFORE the Decap CMS script -->
 		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 		<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 	</head>
 	<body>
+		<!-- Remove the direct CMS.init() call -->
+		<div id="nc-root"></div>
 		<script>
-			window.CMS.init()
+			// Wait for DOM content to load
+			document.addEventListener('DOMContentLoaded', function () {
+				CMS.init()
+			})
 		</script>
 	</body>
 </html>
