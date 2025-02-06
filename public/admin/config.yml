@@ -10,7 +10,7 @@ collections:
     label: 'Blog'
     folder: 'content/blog'
     create: true
-    slug: '{{title}}'
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Description', name: 'description', widget: 'text' }
