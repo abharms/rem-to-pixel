@@ -31,6 +31,17 @@ export const routes: Routes = [
 		title: 'REM to Pixel Converter - Framework Presets'
 	},
 	{
+		// Blog post route - before the catch-all
+		path: ':slug',
+		resolve: {
+			page: () => {
+				// Allow server to handle these routes
+				window.location.href = window.location.href;
+				return true;
+			}
+		}
+	},
+	{
 		path: '**',
 		redirectTo: ''
 	}
