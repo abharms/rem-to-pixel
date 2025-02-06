@@ -4,11 +4,10 @@
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",
-		"build": "ng build",
-		"build-prod": "ng build --configuration production",
+		"build": "ng build --configuration production && npm run postbuild",
+		"postbuild": "cp -r public/blog dist/rem-to-pixel/browser/blog",
 		"watch": "ng build --watch --configuration development",
-		"test": "ng test",
-		"postbuild": "cp -r src/blog/* dist/assets/blog/"
+		"test": "ng test"
 	},
 	"private": true,
 	"dependencies": {
