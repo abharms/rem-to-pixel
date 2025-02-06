@@ -4,9 +4,8 @@
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",
-		"build:blog": "eleventy",
 		"build": "ng build",
-		"build-prod": "npm run build:blog && ng build --configuration production",
+		"build-prod": "ng build --configuration production",
 		"watch": "ng build --watch --configuration development",
 		"test": "ng test",
 		"postbuild": "cp -r src/blog/* dist/assets/blog/"
