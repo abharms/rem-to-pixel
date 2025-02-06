@@ -4,6 +4,7 @@ import { BatchConverterComponent } from './batch-converter/batch-converter.compo
 import { SingleValueComponent } from './single-value/single-value.component';
 import { VisualPreviewComponent } from './visual-preview/visual-preview.component';
 
+// app.routes.ts
 export const routes: Routes = [
 	{
 		path: '',
@@ -30,16 +31,18 @@ export const routes: Routes = [
 		loadChildren: () => import('./framework-presets/framework-presets.routes').then((m) => m.FRAMEWORK_PRESET_ROUTES),
 		title: 'REM to Pixel Converter - Framework Presets'
 	},
+	// Blog post routes should be served from Netlify's CDN
 	{
-		// Blog post route - before the catch-all
 		path: ':slug',
-		resolve: {
-			page: () => {
-				// Allow server to handle these routes
-				window.location.href = window.location.href;
-				return true;
+		canActivate: [
+			() => {
+				// Only redirect if this isn't already a direct request to the static file
+				if (!window.location.href.includes('.html')) {
+					window.location.replace(`${window.location.href}.html`);
+				}
+				return false;
 			}
-		}
+		]
 	},
 	{
 		path: '**',
