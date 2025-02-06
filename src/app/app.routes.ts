@@ -31,9 +31,9 @@ export const routes: Routes = [
 		loadChildren: () => import('./framework-presets/framework-presets.routes').then((m) => m.FRAMEWORK_PRESET_ROUTES),
 		title: 'REM to Pixel Converter - Framework Presets'
 	},
+	{ path: 'blog/:slug', component: BlogPostComponent },
 	{
 		path: '**',
 		redirectTo: ''
-	},
-	{ path: 'blog/:slug', component: BlogPostComponent }
+	}
 ];
