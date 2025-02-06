@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ description }}">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <article>
+        <h1>{{ title }}</h1>
+        <time>{{ date | date: "%Y-%m-%d" }}</time>
+        {{ content | safe }}
+    </article>
+</body>
+</html>

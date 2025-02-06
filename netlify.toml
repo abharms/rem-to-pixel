@@ -1,4 +1,23 @@
+[build]
+  command = "npm run build"
+  publish = "dist/rem-to-pixel"
+
+[build.environment]
+  NODE_VERSION = "18"
+
 [[headers]]
   for = "/*"
   [headers.values]
     X-Robots-Tag = "index, follow"
+
+# Blog posts as static files
+[[redirects]]
+  from = "/blog/*"
+  to = "/blog/:splat"
+  status = 200
+
+# Angular app routes
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
