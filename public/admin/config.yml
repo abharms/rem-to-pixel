@@ -1,18 +1,15 @@
 backend:
-  name: git-gateway
-  branch: master
-
-media_folder: 'public/images/uploads'
-public_folder: '/images/uploads'
-
+  name: git-gateway # Git gateway will connect to your repo for managing posts
+  branch: master # The main branch for your blog content
+media_folder: 'public/images/uploads' # Where images will be stored
+public_folder: '/images/uploads' # The public URL of uploaded images
 collections:
   - name: 'blog'
     label: 'Blog'
-    folder: 'content/blog'
+    folder: 'src/blog'
     create: true
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Description', name: 'description', widget: 'text' }
       - { label: 'Publish Date', name: 'date', widget: 'datetime' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
