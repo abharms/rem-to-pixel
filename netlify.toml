@@ -11,6 +11,6 @@
     X-Robots-Tag = "index, follow"
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/blog/*"
+  to = "/blog/:splat"
   status = 200
