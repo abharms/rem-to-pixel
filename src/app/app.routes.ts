@@ -31,19 +31,8 @@ export const routes: Routes = [
 		title: 'REM to Pixel Converter - Framework Presets'
 	},
 	{
-		path: 'sitemap.xml',
-		resolve: {
-			url: () => redirect('/sitemap.xml')
-		}
-	},
-	{
 		path: '**',
 		redirectTo: '/',
 		pathMatch: 'full'
 	}
 ];
-
-function redirect(url: string) {
-	window.location.href = url;
-	return true;
-}
