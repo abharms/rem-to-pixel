@@ -22,6 +22,11 @@
 							"src/assets",
 							{
 								"glob": "**/*",
+								"input": "public",
+								"output": "/"
+							},
+							{
+								"glob": "**/*",
 								"input": "blog",
 								"output": "/blog"
 							}
