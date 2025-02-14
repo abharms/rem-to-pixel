@@ -31,6 +31,16 @@ export const routes: Routes = [
 		title: 'REM to Pixel Converter - Framework Presets'
 	},
 	{
+		path: 'sitemap.xml',
+		pathMatch: 'prefix', // Exclude this from Angular handling
+		redirectTo: ''
+	},
+	{
+		path: 'robots.txt',
+		pathMatch: 'prefix', // Exclude this from Angular handling
+		redirectTo: ''
+	},
+	{
 		path: '**',
 		redirectTo: '/',
 		pathMatch: 'full'
