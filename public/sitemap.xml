@@ -96,4 +96,10 @@
    <changefreq>weekly</changefreq>
    <priority>0.8</priority>
  </url>
+ <url>
+   <loc>https://remtopixel.com/blog/rems-vs-pixels</loc>
+   <lastmod>2025-02-14</lastmod>
+   <changefreq>weekly</changefreq>
+   <priority>0.8</priority>
+ </url>
 </urlset>
