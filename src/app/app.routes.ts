@@ -41,6 +41,11 @@ export const routes: Routes = [
 		redirectTo: ''
 	},
 	{
+		path: 'blog/index.html',
+		pathMatch: 'prefix', // Exclude this from Angular handling
+		redirectTo: ''
+	},
+	{
 		path: '**',
 		redirectTo: '/',
 		pathMatch: 'full'
