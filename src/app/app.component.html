@@ -4,7 +4,7 @@
 		<!-- Header -->
 		<div class="text-center">
 			<h1 class="text-5xl font-extrabold text-indigo-600 mb-3 text-shadow-md">REM to Pixel Converter</h1>
-			<h2 class="text-lg text-gray-700 mb-6">Easily convert between rems and pixels</h2>
+			<h2 class="text-lg text-gray-700 mb-6">Convert REM to pixels quickly and accurately</h2>
 			<a href="/blog" class="text-indigo-600 hover:text-indigo-800 text-lg underline">Check out the blog</a>
 		</div>
 		<!-- Converter Type Selection -->
@@ -83,6 +83,61 @@
 		</div>
 
 		<div><router-outlet></router-outlet></div>
+
+		<h2 class="text-2xl font-bold text-gray-900 mb-4">How to Use the REM to Pixel Converter</h2>
+
+		<div class="space-y-6 mb-8">
+			<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+				<h3 class="text-xl font-semibold text-indigo-600 mb-3">Single Value Conversion</h3>
+				<div class="space-y-2 text-gray-700">
+					<p>1. Select "Single Value" from the converter type options</p>
+					<p>2. Verify the base font size (default is 16px) or adjust if needed</p>
+					<p>3. Enter either a REM or pixel value in the respective input field</p>
+					<p>4. The corresponding conversion will appear automatically in the other field</p>
+				</div>
+			</div>
+
+			<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+				<h3 class="text-xl font-semibold text-indigo-600 mb-3">Batch Conversion</h3>
+				<div class="space-y-2 text-gray-700">
+					<p>1. Click "Batch Convert" from the converter options</p>
+					<p>2. Choose your conversion direction (REM to Pixels or Pixels to REM)</p>
+					<p>3. Paste your CSS properties into the input area</p>
+					<p>4. Click "Convert" to transform all values at once</p>
+					<p>5. Copy the converted values using the "Copy to Clipboard" button</p>
+				</div>
+			</div>
+
+			<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+				<h3 class="text-xl font-semibold text-indigo-600 mb-3">Framework Presets</h3>
+				<div class="space-y-2 text-gray-700">
+					<p>1. Select "Framework Presets" from the converter type options</p>
+					<p>2. Choose your preferred framework (Tailwind CSS, Bootstrap, or Material UI)</p>
+					<p>3. Browse through common classes and elements</p>
+					<p>4. Use the provided conversions as reference for your project</p>
+					<p>5. Click the copy icon next to any value to copy it to your clipboard</p>
+				</div>
+			</div>
+
+			<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+				<h3 class="text-xl font-semibold text-indigo-600 mb-3">Visual Size Preview</h3>
+				<div class="space-y-2 text-gray-700">
+					<p>1. Click the "Visual Size Preview" button below the converter options</p>
+					<p>2. Enter different REM values to see their actual size on screen</p>
+					<p>3. Compare different sizes side by side</p>
+					<p>4. Use the preview to make informed decisions about your typography and spacing</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="bg-yellow-50 rounded-xl p-6 mb-8">
+			<h3 class="text-xl font-semibold text-yellow-900 mb-2">Quick Tip</h3>
+			<p class="text-yellow-800">
+				Save time by using the batch converter when working with legacy CSS files. Simply copy an entire CSS block, and the converter will automatically
+				identify and convert all pixel or REM values while preserving your original formatting.
+			</p>
+		</div>
+
 		<!-- Quick reference -->
 		<div class="bg-white rounded-3xl shadow-xl p-8">
 			<h2 class="text-xl font-semibold text-gray-800 mb-5">Quick Reference</h2>
@@ -107,18 +162,25 @@
 			<p class="text-gray-700 mb-4">
 				Understanding REM to pixel conversion is essential for modern web development. REM (Root EM) units are relative to the root element's font size,
 				typically 16 pixels by default in most browsers. This conversion tool helps developers accurately transform REM values to pixels and vice versa,
-				ensuring consistent and accessible web designs.
+				ensuring consistent and accessible web designs. Check out our post,
+				<a href="/blog/converting-rem-to-pixels" class="text-indigo-500 underline">Converting REM to Pixels</a>
+				for more information. .
 			</p>
 
 			<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Why Use REM Units?</h2>
-			<ul class="list-disc pl-5 text-gray-700 space-y-2 mb-8">
-				<li>Better accessibility through scalable layouts that respect user preferences</li>
-				<li>Consistent spacing across different screen sizes and devices</li>
-				<li>Easier maintenance of responsive designs</li>
-				<li>Improved typography control and scaling</li>
-				<li>Better support for browser zoom functionality</li>
-			</ul>
-
+			<div class="pl-5 text-gray-700 space-y-2 mb-8">
+				<ul class="list-disc">
+					<li>Better accessibility through scalable layouts that respect user preferences</li>
+					<li>Consistent spacing across different screen sizes and devices</li>
+					<li>Easier maintenance of responsive designs</li>
+					<li>Improved typography control and scaling</li>
+					<li>Better support for browser zoom functionality</li>
+				</ul>
+				<p>
+					Learn the differences between
+					<a href="blog/rems-vs-pixels" class="text-indigo-500 underline">rems and pixels.</a>
+				</p>
+			</div>
 			<h2 class="text-2xl font-bold text-gray-900 mb-4">Common REM to Pixel Conversions</h2>
 			<div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
 				<div class="p-4 bg-gray-50 rounded-lg">
@@ -163,15 +225,15 @@
 				<p class="text-gray-700">Many modern CSS frameworks use REM units by default:</p>
 				<ul class="list-disc pl-5 text-gray-700 space-y-2">
 					<li>
-						<span class="font-medium">Tailwind CSS:</span>
+						<a href="https://tailwindcss.com/" target="_blank" class="font-medium">Tailwind CSS:</a>
 						Uses REM units for spacing scale and typography
 					</li>
 					<li>
-						<span class="font-medium">Bootstrap 5:</span>
+						<a href="https://getbootstrap.com/" target="_blank" class="font-medium">Bootstrap 5:</a>
 						Switched to REM units for better scaling and accessibility
 					</li>
 					<li>
-						<span class="font-medium">Foundation:</span>
+						<a href="https://get.foundation/" target="_blank" class="font-medium">Foundation:</a>
 						Uses REM units for consistent responsive behavior
 					</li>
 				</ul>
@@ -200,6 +262,71 @@
 					For most projects, keeping a base font size of 16px (1rem) is recommended as it aligns with browser defaults and user expectations. However, you can
 					use our converter to experiment with different base sizes while maintaining proportional scaling across your design.
 				</p>
+			</div>
+		</div>
+
+		<div class="max-w-4xl mx-auto mt-16 px-8">
+			<h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+
+			<div class="space-y-6">
+				<!-- FAQ Item -->
+				<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+					<h3 class="text-lg font-semibold text-indigo-600 mb-2">What is REM in CSS?</h3>
+					<p class="text-gray-700">
+						REM stands for "Root EM." It's a unit of measurement in CSS that's relative to the font size of the root element (html). By default, 1 REM equals 16
+						pixels, but this can be adjusted by changing the root font size. REM units make it easier to maintain consistent spacing and sizing across your
+						entire website.
+					</p>
+				</div>
+
+				<!-- FAQ Item -->
+				<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+					<h3 class="text-lg font-semibold text-indigo-600 mb-2">Why is converting REM to pixels important?</h3>
+					<p class="text-gray-700">
+						Converting between REM and pixels is crucial for maintaining consistent designs, especially when working with legacy code or specific design
+						requirements. While REM units are preferred for responsive design, sometimes you need to match pixel-perfect designs or work with systems that use
+						pixel values. Understanding the conversion helps ensure accuracy across different screen sizes and devices.
+					</p>
+				</div>
+
+				<!-- FAQ Item -->
+				<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+					<h3 class="text-lg font-semibold text-indigo-600 mb-2">Should I use REM or pixels in my projects?</h3>
+					<p class="text-gray-700">
+						REM units are generally recommended for modern web development because they scale with user preferences and provide better accessibility. Use REM
+						for font sizes, margins, padding, and other properties that should scale proportionally. However, pixels might be better for certain properties like
+						border widths or when you need exact measurements that shouldn't scale.
+					</p>
+				</div>
+
+				<!-- FAQ Item -->
+				<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+					<h3 class="text-lg font-semibold text-indigo-600 mb-2">How do I calculate REM values manually?</h3>
+					<p class="text-gray-700">
+						To calculate REM values manually, divide your desired pixel value by the root font size (typically 16px). For example, if you want 24px, divide 24
+						by 16 to get 1.5rem. However, using our converter tool is much faster and helps avoid calculation errors, especially when working with multiple
+						values.
+					</p>
+				</div>
+
+				<!-- FAQ Item -->
+				<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+					<h3 class="text-lg font-semibold text-indigo-600 mb-2">Can I change the base font size for REM calculations?</h3>
+					<p class="text-gray-700">
+						Yes, you can change the base font size by setting the font-size property on your html element. Our converter allows you to adjust the base font size
+						to match your project's settings, ensuring accurate conversions. However, it's recommended to stick with the default 16px unless you have a specific
+						reason to change it.
+					</p>
+				</div>
+
+				<!-- FAQ Item -->
+				<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+					<h3 class="text-lg font-semibold text-indigo-600 mb-2">Do all browsers support REM units?</h3>
+					<p class="text-gray-700">
+						Yes, REM units are supported in all modern browsers, including Internet Explorer 9 and above. This widespread support makes REM a reliable choice
+						for contemporary web development. However, if you need to support very old browsers, our converter can help you maintain pixel values as fallbacks.
+					</p>
+				</div>
 			</div>
 		</div>
 
