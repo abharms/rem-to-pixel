@@ -1,12 +1,12 @@
 // batch-converter/batch-converter.component.ts
-import { CommonModule } from '@angular/common';
+
 import { Component, signal } from '@angular/core';
 import { ConverterService } from '../converter.service';
 
 @Component({
 	selector: 'app-batch-converter',
 	standalone: true,
-	imports: [CommonModule],
+	imports: [],
 	templateUrl: './batch-converter.component.html'
 })
 export class BatchConverterComponent {

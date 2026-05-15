@@ -1,5 +1,5 @@
 // app.component.ts
-import { CommonModule } from '@angular/common';
+
 import { Component, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -8,7 +8,7 @@ import { ConverterService } from './converter.service';
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [CommonModule, RouterModule],
+	imports: [RouterModule],
 	templateUrl: './app.component.html'
 })
 export class AppComponent {

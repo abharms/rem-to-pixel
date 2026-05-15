@@ -1,12 +1,12 @@
 // single-value/single-value.component.ts
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ConverterService } from '../converter.service';
 
 @Component({
 	selector: 'app-single-value',
 	standalone: true,
-	imports: [CommonModule],
+	imports: [],
 	templateUrl: './single-value.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
