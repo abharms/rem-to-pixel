@@ -5,11 +5,9 @@
 		@for (category of categories; track category.name) {
 			<button
 				[routerLink]="[presetRoutingService.getSlugFromCategory(category.name)]"
-				routerLinkActive="bg-indigo-500 text-white"
-				[routerLinkActiveOptions]="{ exact: true }"
-				class="px-4 py-2 rounded-xl transition-all"
-				[class.bg-gray-100]="!presetRoutingService.isRouteActive(category.name)"
-				[class.hover:bg-gray-200]="!presetRoutingService.isRouteActive(category.name)"
+				[class.btn-primary]="presetRoutingService.isRouteActive(category.name)"
+				[class.btn-ghost]="!presetRoutingService.isRouteActive(category.name)"
+				class="btn"
 			>
 				{{ category.name }}
 			</button>
@@ -22,12 +20,12 @@
 			<div class="space-y-4">
 				<!-- Basic Info -->
 				<div>
-					<h3 class="text-lg font-semibold text-gray-900">{{ selectedCategory().name }}</h3>
-					<p class="text-gray-600">{{ selectedCategory().description }}</p>
+					<h3 class="text-lg font-semibold text-base-content">{{ selectedCategory().name }}</h3>
+					<p class="text-base-content/70">{{ selectedCategory().description }}</p>
 					@if (selectedCategory().usage) {
-						<div class="text-sm text-gray-500">
+						<div class="text-sm text-base-content/60">
 							Usage:
-							<code class="px-2 py-1 bg-gray-100 rounded">{{ selectedCategory().usage }}</code>
+							<code class="px-2 py-1 bg-base-200 rounded">{{ selectedCategory().usage }}</code>
 						</div>
 					}
 				</div>
@@ -35,10 +33,10 @@
 				<!-- Common Uses -->
 				@if (selectedCategory().commonUses) {
 					<div class="space-y-2">
-						<h4 class="font-medium text-gray-900">Common Uses</h4>
+						<h4 class="font-medium text-base-content">Common Uses</h4>
 						<ul class="space-y-1">
 							@for (use of selectedCategory().commonUses; track use) {
-								<li class="text-gray-600">• {{ use }}</li>
+								<li class="text-base-content/70">• {{ use }}</li>
 							}
 						</ul>
 					</div>
@@ -47,10 +45,10 @@
 				<!-- Related Classes -->
 				@if (selectedCategory().relatedClasses) {
 					<div class="space-y-2">
-						<h4 class="font-medium text-gray-900">Related Classes</h4>
+						<h4 class="font-medium text-base-content">Related Classes</h4>
 						<ul class="space-y-1">
 							@for (cls of selectedCategory().relatedClasses; track cls) {
-								<li class="text-gray-600">• {{ cls }}</li>
+								<li class="text-base-content/70">• {{ cls }}</li>
 							}
 						</ul>
 					</div>
@@ -58,7 +56,7 @@
 
 				<!-- Notes -->
 				@if (selectedCategory().notes) {
-					<div class="mt-4 p-4 bg-gray-50 rounded-lg text-gray-600">
+					<div class="mt-4 p-4 bg-base-200 rounded-lg text-base-content/70">
 						<span class="font-medium">Note:</span>
 						{{ selectedCategory().notes }}
 					</div>
@@ -68,9 +66,9 @@
 			<!-- Values Grid -->
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 				@for (entry of categoryValues(); track entry.name) {
-					<div (click)="copyValue(entry)" class="p-4 bg-gray-50 rounded-xl hover:shadow-md transition-all group relative">
+					<div (click)="copyValue(entry)" class="p-4 bg-base-200 rounded-xl hover:shadow-md transition-all group relative">
 						<!-- Utility class name -->
-						<div class="text-sm font-mono mb-2 text-indigo-600">
+						<div class="text-sm font-mono mb-2 text-primary">
 							{{ displayValue(entry) }}
 						</div>
 
@@ -82,18 +80,18 @@
 						<!-- Conversion values -->
 						<div class="space-y-1">
 							@if (entry.value.px !== null) {
-								<div class="text-gray-700">{{ entry.value.px }}px</div>
+								<div class="text-base-content">{{ entry.value.px }}px</div>
 							}
 							@if (entry.value.rem !== null) {
-								<div class="text-gray-700">{{ entry.value.rem }}rem</div>
+								<div class="text-base-content">{{ entry.value.rem }}rem</div>
 							}
 							@if (entry.value.value) {
-								<div class="text-gray-700">{{ entry.value.value }}</div>
+								<div class="text-base-content">{{ entry.value.value }}</div>
 							}
 						</div>
 						<!-- Copy indicator -->
 						<div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-							<button class="p-1 text-gray-400 hover:text-indigo-500">
+							<button class="p-1 text-base-content/50 hover:text-primary">
 								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path
 										stroke-linecap="round"

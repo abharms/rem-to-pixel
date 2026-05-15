@@ -1,44 +1,41 @@
 <!-- converter-container.component.html -->
-<div class="min-h-screen bg-gradient-to-r from-blue-50 via-gray-100 to-blue-100 p-8">
+<div class="min-h-screen bg-base-200 p-8">
 	<div class="max-w-4xl mx-auto space-y-10">
 		<!-- Header -->
 		<div class="text-center">
-			<h1 class="text-5xl font-extrabold text-indigo-600 mb-3 text-shadow-md">REM to Pixel Converter</h1>
-			<h2 class="text-lg text-gray-700 mb-6">Convert REM to pixels quickly and accurately</h2>
-			<a href="/blog" class="text-indigo-600 hover:text-indigo-800 text-lg underline">Check out the blog</a>
+			<h1 class="text-5xl font-extrabold text-primary mb-3 text-shadow-md">REM to Pixel Converter</h1>
+			<h2 class="text-lg text-base-content mb-6">Convert REM to pixels quickly and accurately</h2>
+			<a href="/blog" class="text-primary hover:text-primary text-lg underline">Check out the blog</a>
 		</div>
 		<!-- Converter Type Selection -->
-		<div class="bg-white rounded-3xl shadow-xl border-gray-100 p-8">
+		<div class="bg-base-100 rounded-3xl shadow-xl border-base-200 p-8">
 			<div class="mb-6">
-				<label class="block text-lg font-semibold text-gray-700 mb-3">Converter Type</label>
+				<label class="block text-lg font-semibold text-base-content mb-3">Converter Type</label>
 				<div class="flex flex-col sm:flex-row gap-4">
 					<button
 						type="button"
 						[routerLink]="['/single-value']"
-						[class.bg-indigo-500]="isActive('single-value')"
-						[class.text-white]="isActive('single-value')"
-						[class.bg-gray-100]="!isActive('single-value')"
-						class="px-4 py-2 rounded-xl font-medium transition-all hover:shadow-md flex-1"
+						[class.btn-primary]="isActive('single-value')"
+						[class.btn-ghost]="!isActive('single-value')"
+						class="btn flex-1"
 					>
 						Single Value
 					</button>
 					<button
 						type="button"
 						[routerLink]="['/batch-convert']"
-						[class.bg-indigo-500]="isActive('batch-convert')"
-						[class.text-white]="isActive('batch-convert')"
-						[class.bg-gray-100]="!isActive('batch-convert')"
-						class="px-4 py-2 rounded-xl font-medium transition-all hover:shadow-md flex-1"
+						[class.btn-primary]="isActive('batch-convert')"
+						[class.btn-ghost]="!isActive('batch-convert')"
+						class="btn flex-1"
 					>
 						Batch Convert
 					</button>
 					<button
 						type="button"
 						[routerLink]="['/framework-presets']"
-						[class.bg-indigo-500]="isActive('framework-presets')"
-						[class.text-white]="isActive('framework-presets')"
-						[class.bg-gray-100]="!isActive('framework-presets')"
-						class="px-4 py-2 rounded-xl font-medium transition-all hover:shadow-md flex-1 flex items-center justify-center gap-2"
+						[class.btn-primary]="isActive('framework-presets')"
+						[class.btn-ghost]="!isActive('framework-presets')"
+						class="btn flex-1 gap-2"
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path
@@ -54,12 +51,12 @@
 			</div>
 
 			<!-- Visual Preview Button -->
-			<div class="mt-4 pt-4 border-t border-gray-100">
+			<div class="mt-4 pt-4 border-t border-base-200">
 				<button
 					type="button"
 					[routerLink]="['/visual-preview']"
-					[class.text-indigo-600]="isActive('visual-preview')"
-					class="group flex items-center gap-2 text-gray-600 hover:text-indigo-600 transition-colors"
+					[class.text-primary]="isActive('visual-preview')"
+					class="group flex items-center gap-2 text-base-content/70 hover:text-primary transition-colors"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -77,23 +74,23 @@
 						/>
 					</svg>
 					<span>Visual Size Preview</span>
-					<span class="text-xs ml-2 text-gray-400 group-hover:text-indigo-400">See how different REM values look</span>
+					<span class="text-xs ml-2 text-base-content/50 group-hover:text-primary/60">See how different REM values look</span>
 				</button>
 			</div>
 		</div>
 
 		<div><router-outlet></router-outlet></div>
 
-		<h2 class="text-2xl font-bold text-gray-900 mb-4">How to Use the REM to Pixel Converter</h2>
+		<h2 class="text-2xl font-bold text-base-content mb-4">How to Use the REM to Pixel Converter</h2>
 
 		<div class="relative overflow-hidden" style="padding-top: 56.25%">
 			<iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/c6aHge8QZZw" frameborder="0" allowfullscreen></iframe>
 		</div>
 
 		<div class="space-y-6 mb-8">
-			<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-				<h3 class="text-xl font-semibold text-indigo-600 mb-3">Single Value Conversion</h3>
-				<div class="space-y-2 text-gray-700">
+			<div class="bg-base-100 rounded-xl shadow-sm p-6 border border-base-200">
+				<h3 class="text-xl font-semibold text-primary mb-3">Single Value Conversion</h3>
+				<div class="space-y-2 text-base-content">
 					<p>1. Select "Single Value" from the converter type options</p>
 					<p>2. Verify the base font size (default is 16px) or adjust if needed</p>
 					<p>3. Enter either a REM or pixel value in the respective input field</p>
@@ -101,9 +98,9 @@
 				</div>
 			</div>
 
-			<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-				<h3 class="text-xl font-semibold text-indigo-600 mb-3">Batch Conversion</h3>
-				<div class="space-y-2 text-gray-700">
+			<div class="bg-base-100 rounded-xl shadow-sm p-6 border border-base-200">
+				<h3 class="text-xl font-semibold text-primary mb-3">Batch Conversion</h3>
+				<div class="space-y-2 text-base-content">
 					<p>1. Click "Batch Convert" from the converter options</p>
 					<p>2. Choose your conversion direction (REM to Pixels or Pixels to REM)</p>
 					<p>3. Paste your CSS properties into the input area</p>
@@ -112,9 +109,9 @@
 				</div>
 			</div>
 
-			<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-				<h3 class="text-xl font-semibold text-indigo-600 mb-3">Framework Presets</h3>
-				<div class="space-y-2 text-gray-700">
+			<div class="bg-base-100 rounded-xl shadow-sm p-6 border border-base-200">
+				<h3 class="text-xl font-semibold text-primary mb-3">Framework Presets</h3>
+				<div class="space-y-2 text-base-content">
 					<p>1. Select "Framework Presets" from the converter type options</p>
 					<p>2. Choose your preferred framework (Tailwind CSS, Bootstrap, or Material UI)</p>
 					<p>3. Browse through common classes and elements</p>
@@ -123,9 +120,9 @@
 				</div>
 			</div>
 
-			<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-				<h3 class="text-xl font-semibold text-indigo-600 mb-3">Visual Size Preview</h3>
-				<div class="space-y-2 text-gray-700">
+			<div class="bg-base-100 rounded-xl shadow-sm p-6 border border-base-200">
+				<h3 class="text-xl font-semibold text-primary mb-3">Visual Size Preview</h3>
+				<div class="space-y-2 text-base-content">
 					<p>1. Click the "Visual Size Preview" button below the converter options</p>
 					<p>2. Enter different REM values to see their actual size on screen</p>
 					<p>3. Compare different sizes side by side</p>
@@ -134,45 +131,45 @@
 			</div>
 		</div>
 
-		<div class="bg-yellow-50 rounded-xl p-6 mb-8">
-			<h3 class="text-xl font-semibold text-yellow-900 mb-2">Quick Tip</h3>
-			<p class="text-yellow-800">
+		<div class="bg-warning/10 rounded-xl p-6 mb-8">
+			<h3 class="text-xl font-semibold text-base-content mb-2">Quick Tip</h3>
+			<p class="text-base-content">
 				Save time by using the batch converter when working with legacy CSS files. Simply copy an entire CSS block, and the converter will automatically
 				identify and convert all pixel or REM values while preserving your original formatting.
 			</p>
 		</div>
 
 		<!-- Quick reference -->
-		<div class="bg-white rounded-3xl shadow-xl p-8">
-			<h2 class="text-xl font-semibold text-gray-800 mb-5">Quick Reference</h2>
+		<div class="bg-base-100 rounded-3xl shadow-xl p-8">
+			<h2 class="text-xl font-semibold text-base-content mb-5">Quick Reference</h2>
 			<div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-				<div class="text-center p-4 bg-indigo-50 rounded-xl hover:shadow-md hover:bg-indigo-100 transition-colors">
-					<div class="font-semibold text-indigo-700">16px</div>
-					<div class="text-indigo-600">1rem</div>
+				<div class="text-center p-4 bg-primary/10 rounded-xl hover:shadow-md hover:bg-primary/20 transition-colors">
+					<div class="font-semibold text-primary">16px</div>
+					<div class="text-primary">1rem</div>
 				</div>
-				<div class="text-center p-4 bg-indigo-50 rounded-xl hover:shadow-md hover:bg-indigo-100 transition-colors">
-					<div class="font-semibold text-indigo-700">24px</div>
-					<div class="text-indigo-600">1.5rem</div>
+				<div class="text-center p-4 bg-primary/10 rounded-xl hover:shadow-md hover:bg-primary/20 transition-colors">
+					<div class="font-semibold text-primary">24px</div>
+					<div class="text-primary">1.5rem</div>
 				</div>
-				<div class="text-center p-4 bg-indigo-50 rounded-xl hover:shadow-md hover:bg-indigo-100 transition-colors">
-					<div class="font-semibold text-indigo-700">32px</div>
-					<div class="text-indigo-600">2rem</div>
+				<div class="text-center p-4 bg-primary/10 rounded-xl hover:shadow-md hover:bg-primary/20 transition-colors">
+					<div class="font-semibold text-primary">32px</div>
+					<div class="text-primary">2rem</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="max-w-4xl mx-auto mt-16 px-8">
-			<h2 class="text-2xl font-bold text-gray-900 mb-4">What is REM to Pixel Conversion?</h2>
-			<p class="text-gray-700 mb-4">
+			<h2 class="text-2xl font-bold text-base-content mb-4">What is REM to Pixel Conversion?</h2>
+			<p class="text-base-content mb-4">
 				The ability to convert back and forth between REMs and pixels is an excellent tool for your web development toolbox. REM (Root EM) units are relative to
 				the root element's font size, which is usually 16 pixels by default in most browsers. Our conversion tool helps developers accurately transform REM
 				values to pixels and vice versa, ensuring consistent and accessible web designs. Check out our post,
-				<a href="/blog/converting-rem-to-pixels" class="text-indigo-500 underline">Converting REM to Pixels</a>
+				<a href="/blog/converting-rem-to-pixels" class="text-primary underline">Converting REM to Pixels</a>
 				for more information.
 			</p>
 
-			<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Why Use REM Units?</h2>
-			<div class="pl-5 text-gray-700 space-y-2 mb-8">
+			<h2 class="text-2xl font-bold text-base-content mt-8 mb-4">Why Use REM Units?</h2>
+			<div class="pl-5 text-base-content space-y-2 mb-8">
 				<ul class="list-disc">
 					<li>Better accessibility through scalable layouts that respect user preferences</li>
 					<li>Consistent spacing across different screen sizes and devices</li>
@@ -182,41 +179,41 @@
 				</ul>
 				<p>
 					Learn the differences between
-					<a href="blog/rems-vs-pixels" class="text-indigo-500 underline">rems and pixels.</a>
+					<a href="blog/rems-vs-pixels" class="text-primary underline">rems and pixels.</a>
 				</p>
 			</div>
-			<h2 class="text-2xl font-bold text-gray-900 mb-4">Common REM to Pixel Conversions</h2>
+			<h2 class="text-2xl font-bold text-base-content mb-4">Common REM to Pixel Conversions</h2>
 			<div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-				<div class="p-4 bg-gray-50 rounded-lg">
+				<div class="p-4 bg-base-200 rounded-lg">
 					<div class="font-medium">1rem = 16px</div>
-					<div class="text-sm text-gray-600">Base size</div>
+					<div class="text-sm text-base-content/70">Base size</div>
 				</div>
-				<div class="p-4 bg-gray-50 rounded-lg">
+				<div class="p-4 bg-base-200 rounded-lg">
 					<div class="font-medium">0.875rem = 14px</div>
-					<div class="text-sm text-gray-600">Small text</div>
+					<div class="text-sm text-base-content/70">Small text</div>
 				</div>
-				<div class="p-4 bg-gray-50 rounded-lg">
+				<div class="p-4 bg-base-200 rounded-lg">
 					<div class="font-medium">1.125rem = 18px</div>
-					<div class="text-sm text-gray-600">Large text</div>
+					<div class="text-sm text-base-content/70">Large text</div>
 				</div>
-				<div class="p-4 bg-gray-50 rounded-lg">
+				<div class="p-4 bg-base-200 rounded-lg">
 					<div class="font-medium">1.5rem = 24px</div>
-					<div class="text-sm text-gray-600">Headings</div>
+					<div class="text-sm text-base-content/70">Headings</div>
 				</div>
-				<div class="p-4 bg-gray-50 rounded-lg">
+				<div class="p-4 bg-base-200 rounded-lg">
 					<div class="font-medium">2rem = 32px</div>
-					<div class="text-sm text-gray-600">Large headings</div>
+					<div class="text-sm text-base-content/70">Large headings</div>
 				</div>
-				<div class="p-4 bg-gray-50 rounded-lg">
+				<div class="p-4 bg-base-200 rounded-lg">
 					<div class="font-medium">0.25rem = 4px</div>
-					<div class="text-sm text-gray-600">Spacing units</div>
+					<div class="text-sm text-base-content/70">Spacing units</div>
 				</div>
 			</div>
 
-			<h2 class="text-2xl font-bold text-gray-900 mb-4">Best Practices for Using REM Units</h2>
+			<h2 class="text-2xl font-bold text-base-content mb-4">Best Practices for Using REM Units</h2>
 			<div class="space-y-4 mb-8">
-				<p class="text-gray-700">When working with REM units, consider these best practices:</p>
-				<ul class="list-disc pl-5 text-gray-700 space-y-2">
+				<p class="text-base-content">When working with REM units, consider these best practices:</p>
+				<ul class="list-disc pl-5 text-base-content space-y-2">
 					<li>Use REM for font sizes and spacing to maintain proportional scaling</li>
 					<li>Keep your root font size (16px) consistent unless there's a specific need to change it</li>
 					<li>Consider using REM for media query breakpoints to ensure consistent scaling</li>
@@ -224,10 +221,10 @@
 				</ul>
 			</div>
 
-			<h2 class="text-2xl font-bold text-gray-900 mb-4">Popular Frameworks and REM Usage</h2>
+			<h2 class="text-2xl font-bold text-base-content mb-4">Popular Frameworks and REM Usage</h2>
 			<div class="space-y-4 mb-8">
-				<p class="text-gray-700">Many modern CSS frameworks use REM units as their default unit of measurement:</p>
-				<ul class="list-disc pl-5 text-gray-700 space-y-2">
+				<p class="text-base-content">Many modern CSS frameworks use REM units as their default unit of measurement:</p>
+				<ul class="list-disc pl-5 text-base-content space-y-2">
 					<li>
 						<a href="https://tailwindcss.com/" target="_blank" class="font-medium">Tailwind CSS:</a>
 						Uses REM units for spacing scale and typography
@@ -243,10 +240,10 @@
 				</ul>
 			</div>
 
-			<h2 class="text-2xl font-bold text-gray-900 mb-4">Browser Support and Accessibility</h2>
+			<h2 class="text-2xl font-bold text-base-content mb-4">Browser Support and Accessibility</h2>
 			<div class="space-y-4 mb-8">
-				<p class="text-gray-700">REM units are supported in all modern browsers (IE9+) and provide several accessibility benefits:</p>
-				<ul class="list-disc pl-5 text-gray-700 space-y-2">
+				<p class="text-base-content">REM units are supported in all modern browsers (IE9+) and provide several accessibility benefits:</p>
+				<ul class="list-disc pl-5 text-base-content space-y-2">
 					<li>Respects user's browser font size settings</li>
 					<li>Maintains proportions when zooming</li>
 					<li>Helps meet WCAG 2.1 success criteria for text resizing</li>
@@ -254,15 +251,15 @@
 				</ul>
 			</div>
 
-			<h2 class="text-2xl font-bold text-gray-900 mb-4">Converting Legacy Code</h2>
-			<p class="text-gray-700 mb-4">
+			<h2 class="text-2xl font-bold text-base-content mb-4">Converting Legacy Code</h2>
+			<p class="text-base-content mb-4">
 				When converting legacy code from pixels to REM units, use our batch converter tool to quickly transform multiple values. This ensures your existing
 				designs maintain their proportions while gaining the benefits of relative units.
 			</p>
 
-			<div class="bg-blue-50 rounded-xl p-6 mt-8">
-				<h3 class="text-xl font-semibold text-blue-900 mb-2">Pro Tip</h3>
-				<p class="text-blue-800">
+			<div class="bg-info/10 rounded-xl p-6 mt-8">
+				<h3 class="text-xl font-semibold text-base-content mb-2">Pro Tip</h3>
+				<p class="text-base-content">
 					For most projects, keeping a base font size of 16px (1rem) is recommended as it aligns with browser defaults and user expectations. However, you can
 					use our converter to experiment with different base sizes while maintaining proportional scaling across your design.
 				</p>
@@ -270,13 +267,13 @@
 		</div>
 
 		<div class="max-w-4xl mx-auto mt-16 px-8">
-			<h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+			<h2 class="text-2xl font-bold text-base-content mb-6">Frequently Asked Questions</h2>
 
 			<div class="space-y-6">
 				<!-- FAQ Item -->
-				<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-					<h3 class="text-lg font-semibold text-indigo-600 mb-2">What are REM units in CSS?</h3>
-					<p class="text-gray-700">
+				<div class="bg-base-100 rounded-xl shadow-sm p-6 border border-base-200">
+					<h3 class="text-lg font-semibold text-primary mb-2">What are REM units in CSS?</h3>
+					<p class="text-base-content">
 						REM stands for "Root EM." It's a unit of measurement in CSS that's relative to the font size of the root element (html). By default, 1 REM equals 16
 						pixels, but this can be adjusted by changing the root font size. REM units make it easier to maintain consistent spacing and sizing across your
 						entire website.
@@ -284,9 +281,9 @@
 				</div>
 
 				<!-- FAQ Item -->
-				<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-					<h3 class="text-lg font-semibold text-indigo-600 mb-2">Why is converting REM to pixels important?</h3>
-					<p class="text-gray-700">
+				<div class="bg-base-100 rounded-xl shadow-sm p-6 border border-base-200">
+					<h3 class="text-lg font-semibold text-primary mb-2">Why is converting REM to pixels important?</h3>
+					<p class="text-base-content">
 						Converting between REM and pixels is important for maintaining consistent designs, especially when working with legacy code or specific design
 						requirements. While REM units are preferred for responsive design, sometimes you need to match pixel-perfect designs or work with systems that use
 						pixel values. Understanding the conversion helps ensure accuracy across different devices and screen sizes.
@@ -294,9 +291,9 @@
 				</div>
 
 				<!-- FAQ Item -->
-				<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-					<h3 class="text-lg font-semibold text-indigo-600 mb-2">Should I use REM or pixels in my projects?</h3>
-					<p class="text-gray-700">
+				<div class="bg-base-100 rounded-xl shadow-sm p-6 border border-base-200">
+					<h3 class="text-lg font-semibold text-primary mb-2">Should I use REM or pixels in my projects?</h3>
+					<p class="text-base-content">
 						REM units are generally recommended for modern web development because they scale with user preferences and provide better accessibility. Use REM
 						for font sizes, margins, padding, and other properties that should scale proportionally. However, pixels might be better for certain properties like
 						border widths or when you need exact measurements that shouldn't scale.
@@ -304,9 +301,9 @@
 				</div>
 
 				<!-- FAQ Item -->
-				<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-					<h3 class="text-lg font-semibold text-indigo-600 mb-2">How do I calculate REM values manually?</h3>
-					<p class="text-gray-700">
+				<div class="bg-base-100 rounded-xl shadow-sm p-6 border border-base-200">
+					<h3 class="text-lg font-semibold text-primary mb-2">How do I calculate REM values manually?</h3>
+					<p class="text-base-content">
 						To calculate REM values manually, divide your desired pixel value by the root font size (typically 16px). For example, if you want 24px, divide 24
 						by 16 to get 1.5rem. However, using our converter tool is much faster and helps avoid calculation errors, especially when working with multiple
 						values.
@@ -314,9 +311,9 @@
 				</div>
 
 				<!-- FAQ Item -->
-				<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-					<h3 class="text-lg font-semibold text-indigo-600 mb-2">Can I change the base font size for REM calculations?</h3>
-					<p class="text-gray-700">
+				<div class="bg-base-100 rounded-xl shadow-sm p-6 border border-base-200">
+					<h3 class="text-lg font-semibold text-primary mb-2">Can I change the base font size for REM calculations?</h3>
+					<p class="text-base-content">
 						Yes, you can change the base font size by setting the font-size property on your html element. Our converter allows you to adjust the base font size
 						to match your project's settings, ensuring accurate conversions. However, it's recommended to stick with the default 16px unless you have a specific
 						reason to change it.
@@ -324,9 +321,9 @@
 				</div>
 
 				<!-- FAQ Item -->
-				<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-					<h3 class="text-lg font-semibold text-indigo-600 mb-2">Do all browsers support REM units?</h3>
-					<p class="text-gray-700">
+				<div class="bg-base-100 rounded-xl shadow-sm p-6 border border-base-200">
+					<h3 class="text-lg font-semibold text-primary mb-2">Do all browsers support REM units?</h3>
+					<p class="text-base-content">
 						Yes, REM units are supported in all modern browsers, including Internet Explorer 9 and above. This widespread support makes REM a reliable choice
 						for contemporary web development. However, if you need to support very old browsers, our converter can help you maintain pixel values as fallbacks.
 					</p>
@@ -335,8 +332,8 @@
 		</div>
 
 		<div class="mt-16 pb-8 text-center">
-			<div class="flex flex-col md:flex-row items-center justify-center gap-4 text-gray-600">
-				<div>© 2025 Rem To Pixel. All rights reserved.</div>
+			<div class="flex flex-col md:flex-row items-center justify-center gap-4 text-base-content/70">
+				<div>© {{ currentYear }} Rem To Pixel. All rights reserved.</div>
 			</div>
 		</div>
 	</div>

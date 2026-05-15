@@ -13,6 +13,7 @@ import { ConverterService } from './converter.service';
 })
 export class AppComponent {
 	activeRoute = signal<string>('');
+	currentYear = new Date().getFullYear();
 
 	constructor(
 		private router: Router,
