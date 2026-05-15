@@ -31,18 +31,23 @@ export const routes: Routes = [
 		title: 'REM to Pixel Converter - Framework Presets'
 	},
 	{
+		path: 'clamp-generator',
+		loadComponent: () => import('./clamp-generator/clamp-generator.component').then((m) => m.ClampGeneratorComponent),
+		title: 'REM to Pixel Converter - Clamp Generator'
+	},
+	{
 		path: 'sitemap.xml',
-		pathMatch: 'prefix', // Exclude this from Angular handling
+		pathMatch: 'prefix',
 		redirectTo: ''
 	},
 	{
 		path: 'robots.txt',
-		pathMatch: 'prefix', // Exclude this from Angular handling
+		pathMatch: 'prefix',
 		redirectTo: ''
 	},
 	{
 		path: 'blog/index.html',
-		pathMatch: 'prefix', // Exclude this from Angular handling
+		pathMatch: 'prefix',
 		redirectTo: ''
 	},
 	{

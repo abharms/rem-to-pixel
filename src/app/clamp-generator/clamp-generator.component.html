@@ -1,0 +1,67 @@
+<div class="bg-base-100 rounded-3xl shadow-xl p-8">
+	<div class="mb-6">
+		<h2 class="text-2xl font-bold text-base-content">Clamp Generator</h2>
+		<p class="text-base-content/70 text-sm mt-1">Generate fluid <code class="bg-base-200 px-1 rounded">clamp()</code> values that scale smoothly between two sizes across viewport widths.</p>
+	</div>
+
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+		<!-- Inputs -->
+		<div class="space-y-5">
+			<div class="form-control">
+				<label class="label"><span class="label-text font-semibold">Min size (px)</span><span class="label-text-alt text-base-content/60">= {{ minRem() }}</span></label>
+				<input type="number" [value]="minPx()" (input)="setMinPx($event)" class="input input-bordered w-full" min="1" />
+			</div>
+			<div class="form-control">
+				<label class="label"><span class="label-text font-semibold">Max size (px)</span><span class="label-text-alt text-base-content/60">= {{ maxRem() }}</span></label>
+				<input type="number" [value]="maxPx()" (input)="setMaxPx($event)" class="input input-bordered w-full" min="1" />
+			</div>
+			<div class="form-control">
+				<label class="label"><span class="label-text font-semibold">Min viewport (px)</span></label>
+				<input type="number" [value]="minVw()" (input)="setMinVw($event)" class="input input-bordered w-full" min="1" />
+			</div>
+			<div class="form-control">
+				<label class="label"><span class="label-text font-semibold">Max viewport (px)</span></label>
+				<input type="number" [value]="maxVw()" (input)="setMaxVw($event)" class="input input-bordered w-full" min="1" />
+			</div>
+			<p class="text-base-content/60 text-xs">Base font size: {{ converterService.baseFontSize() }}px — adjust in the converter above.</p>
+		</div>
+
+		<!-- Output -->
+		<div class="space-y-5">
+			<div class="form-control">
+				<label class="label"><span class="label-text font-semibold">Generated CSS</span></label>
+				@if (clampValue()) {
+					<div class="relative">
+						<div class="bg-base-200 rounded-xl p-4 font-mono text-sm text-base-content break-all leading-relaxed">
+							font-size: {{ clampValue() }};
+						</div>
+						<button (click)="copyClamp()" class="btn btn-primary btn-sm absolute top-3 right-3">
+							{{ clampCopied() ? '✓ Copied' : 'Copy' }}
+						</button>
+					</div>
+				} @else {
+					<div class="bg-base-200 rounded-xl p-4 text-base-content/50 text-sm italic">
+						Min size must be less than max size, and min viewport less than max viewport.
+					</div>
+				}
+			</div>
+
+			@if (previewSizes().length) {
+				<div>
+					<p class="text-sm font-semibold text-base-content mb-3">Preview at viewport widths</p>
+					<div class="space-y-2">
+						@for (item of previewSizes(); track item.viewport) {
+							<div class="flex items-center gap-3 text-sm">
+								<span class="text-base-content/70 w-12 shrink-0">{{ item.viewport }}px</span>
+								<div class="flex-1 bg-base-200 rounded-full h-2 overflow-hidden">
+									<div class="bg-primary h-2 rounded-full transition-all" [style.width.%]="item.pct"></div>
+								</div>
+								<span class="font-medium text-base-content w-14 text-right shrink-0">{{ item.px }}px</span>
+							</div>
+						}
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>

@@ -5,12 +5,19 @@
 		<div class="text-center">
 			<h1 class="text-5xl font-extrabold text-primary mb-3 text-shadow-md">REM to Pixel Converter</h1>
 			<h2 class="text-lg text-base-content mb-6">Convert REM to pixels quickly and accurately</h2>
-			<div class="flex items-center justify-center gap-6 flex-wrap">
+			<div class="flex items-center justify-center gap-4 flex-wrap">
 				<a href="/blog" class="text-primary text-lg underline">Check out the blog</a>
 				<button class="btn btn-ghost btn-sm" (click)="featureRequestModal.showModal()">Request a feature</button>
 				<a href="https://buymeacoffee.com/travelhitshard" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-semibold px-4 py-2 rounded-xl transition-colors text-sm">
 					<span>☕</span> Buy me a coffee
 				</a>
+				<button class="btn btn-ghost btn-sm btn-circle" (click)="toggleTheme()" [title]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'">
+					@if (isDark()) {
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14A7 7 0 0012 5z" /></svg>
+					} @else {
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+					}
+				</button>
 			</div>
 
 			<!-- Feature Request Modal -->
@@ -79,6 +86,18 @@
 							/>
 						</svg>
 						Framework Presets
+					</button>
+					<button
+						type="button"
+						[routerLink]="['/clamp-generator']"
+						[class.btn-primary]="isActive('clamp-generator')"
+						[class.btn-ghost]="!isActive('clamp-generator')"
+						class="btn flex-1 gap-2"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4" />
+						</svg>
+						Clamp Generator
 					</button>
 				</div>
 			</div>

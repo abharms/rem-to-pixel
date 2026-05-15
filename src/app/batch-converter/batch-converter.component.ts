@@ -13,6 +13,7 @@ export class BatchConverterComponent {
 	conversionType = signal<'remToPx' | 'pxToRem'>('remToPx');
 	inputText = signal<string>('');
 	convertedText = signal<string>('');
+	copied = signal<boolean>(false);
 
 	constructor(public converterService: ConverterService) {}
 
@@ -27,31 +28,31 @@ export class BatchConverterComponent {
 
 	setConversionType(type: 'remToPx' | 'pxToRem') {
 		this.conversionType.set(type);
-		this.convertedText.set(''); // Clear output when switching type
+		this.convertValues();
 	}
 
 	onBaseFontSizeInput(event: Event) {
 		const value = +(event.target as HTMLInputElement).value;
 		if (!isNaN(value) && value > 0) {
 			this.converterService.updateBaseFontSize(value);
-			// Reconvert if there's existing input
-			if (this.convertedText()) {
-				this.convertValues();
-			}
+			this.convertValues();
 		}
 	}
 
 	onInputChange(event: Event) {
 		const value = (event.target as HTMLTextAreaElement).value;
 		this.inputText.set(value);
-		this.convertedText.set(''); // Clear output when input changes
+		this.convertValues();
 	}
 
 	convertValues() {
 		const input = this.inputText();
 		const baseFontSize = this.converterService.baseFontSize();
 
-		if (!input) return;
+		if (!input) {
+			this.convertedText.set('');
+			return;
+		}
 
 		let converted = input;
 
@@ -72,16 +73,10 @@ export class BatchConverterComponent {
 		this.convertedText.set(converted);
 	}
 
-	copyToClipboard() {
-		navigator.clipboard
-			.writeText(this.convertedText())
-			.then(() => {
-				console.log('Copied to clipboard');
-				// Could add a toast notification here
-			})
-			.catch((err) => {
-				console.error('Failed to copy text: ', err);
-			});
+	async copyToClipboard() {
+		await navigator.clipboard.writeText(this.convertedText());
+		this.copied.set(true);
+		setTimeout(() => this.copied.set(false), 1500);
 	}
 
 	// Computed value for placeholder text based on conversion type

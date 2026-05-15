@@ -4,7 +4,7 @@ import { Injectable, signal } from '@angular/core';
 	providedIn: 'root'
 })
 export class ConverterService {
-	private _baseFontSize = signal<number>(16);
+	private _baseFontSize = signal<number>(+(localStorage.getItem('baseFontSize') ?? '16'));
 
 	get baseFontSize() {
 		return this._baseFontSize;
@@ -12,5 +12,6 @@ export class ConverterService {
 
 	updateBaseFontSize(size: number) {
 		this._baseFontSize.set(size);
+		localStorage.setItem('baseFontSize', size.toString());
 	}
 }
