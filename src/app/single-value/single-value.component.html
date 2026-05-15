@@ -118,4 +118,45 @@
 			</div>
 		}
 	</div>
+
+	<!-- Conversion History -->
+	<div class="mt-6 pt-6 border-t border-base-200">
+		<div class="flex items-center justify-between">
+			<button type="button" (click)="toggleHistory()" class="flex items-center gap-2 text-base-content/70 hover:text-primary transition-colors text-sm font-medium">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+				</svg>
+				History
+				@if (history().length > 0) {
+					<span class="badge badge-sm">{{ history().length }}</span>
+				}
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-transform" [class.rotate-180]="showHistory()" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+				</svg>
+			</button>
+			@if (showHistory() && history().length > 0) {
+				<button type="button" (click)="clearHistory()" class="btn btn-ghost btn-xs text-error">Clear history</button>
+			}
+		</div>
+
+		@if (showHistory()) {
+			<div class="mt-4 space-y-2">
+				@if (history().length === 0) {
+					<p class="text-base-content/50 text-sm">No conversions yet.</p>
+				} @else {
+					@for (entry of history(); track entry.timestamp) {
+						<button type="button" (click)="restoreEntry(entry)" class="w-full flex items-center justify-between p-3 rounded-xl bg-base-200 hover:bg-base-300 transition-colors text-left group">
+							<div class="flex items-center gap-3 text-sm">
+								<span class="font-mono text-primary">{{ entry.rem }}rem</span>
+								<span class="text-base-content/40">→</span>
+								<span class="font-mono text-base-content">{{ entry.px }}px</span>
+								<span class="text-base-content/40 text-xs">@ {{ entry.base }}px</span>
+							</div>
+							<span class="text-xs text-base-content/40 group-hover:text-primary/60 shrink-0">{{ timeAgo(entry.timestamp) }}</span>
+						</button>
+					}
+				}
+			</div>
+		}
+	</div>
 </div>

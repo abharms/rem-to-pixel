@@ -36,6 +36,26 @@ export const routes: Routes = [
 		title: 'REM to Pixel Converter - Clamp Generator'
 	},
 	{
+		path: 'type-scale',
+		loadComponent: () => import('./type-scale/type-scale.component').then((m) => m.TypeScaleComponent),
+		title: 'REM to Pixel Converter - Type Scale Generator'
+	},
+	{
+		path: 'spacing-scale',
+		loadComponent: () => import('./spacing-scale/spacing-scale.component').then((m) => m.SpacingScaleComponent),
+		title: 'REM to Pixel Converter - Spacing Scale Generator'
+	},
+	{
+		path: 'media-queries',
+		loadComponent: () => import('./media-queries/media-queries.component').then((m) => m.MediaQueriesComponent),
+		title: 'REM to Pixel Converter - Media Query Converter'
+	},
+	{
+		path: 'multi-base',
+		loadComponent: () => import('./multi-base/multi-base.component').then((m) => m.MultiBaseComponent),
+		title: 'REM to Pixel Converter - Multi-Base Comparison'
+	},
+	{
 		path: 'sitemap.xml',
 		pathMatch: 'prefix',
 		redirectTo: ''

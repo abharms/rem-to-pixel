@@ -1,0 +1,93 @@
+<div class="bg-base-100 rounded-3xl shadow-xl p-8">
+	<div class="mb-6">
+		<h2 class="text-2xl font-bold text-base-content">Media Query Converter</h2>
+		<p class="text-base-content/70 text-sm mt-1">
+			Convert px breakpoints to <code class="bg-base-200 px-1 rounded">rem</code> for accessibility-friendly media queries.
+			Media queries respond to the user's browser font size preference when written in rem.
+		</p>
+	</div>
+
+	<!-- Preset selector -->
+	<div class="mb-6">
+		<label class="block text-sm font-semibold text-base-content mb-3">Breakpoint Preset</label>
+		<div class="flex flex-col sm:flex-row gap-3">
+			<button type="button" (click)="setActiveSet('tailwind')" [class.btn-primary]="activeSet() === 'tailwind'" [class.btn-ghost]="activeSet() !== 'tailwind'" class="btn flex-1">
+				Tailwind CSS
+			</button>
+			<button type="button" (click)="setActiveSet('bootstrap')" [class.btn-primary]="activeSet() === 'bootstrap'" [class.btn-ghost]="activeSet() !== 'bootstrap'" class="btn flex-1">
+				Bootstrap
+			</button>
+			<button type="button" (click)="setActiveSet('custom')" [class.btn-primary]="activeSet() === 'custom'" [class.btn-ghost]="activeSet() !== 'custom'" class="btn flex-1">
+				Custom
+			</button>
+		</div>
+	</div>
+
+	<!-- Custom input -->
+	@if (activeSet() === 'custom') {
+		<div class="mb-6 form-control">
+			<label class="label"><span class="label-text font-semibold">Breakpoints (one px value per line)</span></label>
+			<textarea
+				[value]="customText()"
+				(input)="onCustomTextChange($event)"
+				placeholder="640&#10;768&#10;1024&#10;1280"
+				class="textarea textarea-bordered font-mono h-28"
+			></textarea>
+		</div>
+	}
+
+	<!-- Table -->
+	@if (rows().length > 0) {
+		<div class="overflow-x-auto mb-6">
+			<table class="table table-zebra w-full">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>px</th>
+						<th>rem</th>
+						<th>min-width</th>
+						<th>max-width</th>
+					</tr>
+				</thead>
+				<tbody>
+					@for (row of rows(); track $index; let i = $index) {
+						<tr>
+							<td class="font-mono font-semibold text-primary">{{ row.name }}</td>
+							<td class="font-mono">{{ row.px }}px</td>
+							<td class="font-mono">{{ row.rem }}rem</td>
+							<td>
+								<div class="flex items-center gap-2">
+									<code class="text-xs bg-base-200 px-2 py-1 rounded">{{ row.minWidth }}</code>
+									<button (click)="copyRow(i, 'min')" class="btn btn-ghost btn-xs shrink-0">
+										{{ rowCopyState()[i]?.min ? '✓' : 'Copy' }}
+									</button>
+								</div>
+							</td>
+							<td>
+								<div class="flex items-center gap-2">
+									<code class="text-xs bg-base-200 px-2 py-1 rounded">{{ row.maxWidth }}</code>
+									<button (click)="copyRow(i, 'max')" class="btn btn-ghost btn-xs shrink-0">
+										{{ rowCopyState()[i]?.max ? '✓' : 'Copy' }}
+									</button>
+								</div>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+
+		<button (click)="copyAll()" class="btn btn-primary gap-2">
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+			</svg>
+			{{ allCopied() ? '✓ Copied' : 'Copy all as CSS' }}
+		</button>
+	} @else if (activeSet() === 'custom') {
+		<p class="text-base-content/50 text-sm italic">Enter at least one valid px value above.</p>
+	}
+
+	<div class="mt-6 bg-info/10 rounded-xl p-4 text-sm text-base-content/70">
+		Media queries always use <strong>16px</strong> as the rem base, regardless of the global base font size setting above — this matches how browsers evaluate media queries.
+	</div>
+</div>

@@ -64,8 +64,8 @@ export class BatchConverterComponent {
 			});
 		} else {
 			// Convert px to rem
-			converted = converted.replace(/(\d+)px/g, (_match, pixels) => {
-				const rems = this.formatNumber(parseInt(pixels) / baseFontSize);
+			converted = converted.replace(/(\d*\.?\d+)px/g, (_match, pixels) => {
+				const rems = this.formatNumber(parseFloat(pixels) / baseFontSize);
 				return `${rems}rem`;
 			});
 		}

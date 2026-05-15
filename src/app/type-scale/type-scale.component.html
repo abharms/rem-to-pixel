@@ -1,0 +1,101 @@
+<div class="bg-base-100 rounded-3xl shadow-xl p-8">
+	<div class="mb-6">
+		<h2 class="text-2xl font-bold text-base-content">Type Scale Generator</h2>
+		<p class="text-base-content/70 text-sm mt-1">Generate a modular typographic scale in rem using a ratio. Output as CSS custom properties ready to paste.</p>
+	</div>
+
+	<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+		<!-- Inputs -->
+		<div class="space-y-5">
+			<div class="form-control">
+				<label class="label"><span class="label-text font-semibold">Base size (px)</span></label>
+				<input type="number" [value]="basePx()" (input)="onBasePxInput($event)" class="input input-bordered w-full" min="1" />
+			</div>
+
+			<div class="form-control">
+				<label class="label"><span class="label-text font-semibold">Scale ratio</span></label>
+				<select [value]="selectedRatioIndex()" (change)="onRatioSelect($event)" class="select select-bordered w-full">
+					@for (ratio of ratios; track $index; let i = $index) {
+						<option [value]="i">{{ ratio.name }}</option>
+					}
+				</select>
+			</div>
+
+			@if (isCustomRatio()) {
+				<div class="form-control">
+					<label class="label">
+						<span class="label-text font-semibold">Custom ratio</span>
+						@if (customRatioInvalid()) {
+							<span class="label-text-alt text-error">Must be greater than 1</span>
+						}
+					</label>
+					<input
+						type="number"
+						[value]="customRatioValue()"
+						(input)="onCustomRatioInput($event)"
+						class="input input-bordered w-full"
+						[class.input-error]="customRatioInvalid()"
+						step="0.001"
+						min="1.001"
+					/>
+				</div>
+			}
+
+			<div class="grid grid-cols-2 gap-4">
+				<div class="form-control">
+					<label class="label"><span class="label-text font-semibold">Steps above base</span></label>
+					<input type="number" [value]="stepsAbove()" (input)="onStepsAboveInput($event)" class="input input-bordered" min="0" max="10" />
+				</div>
+				<div class="form-control">
+					<label class="label"><span class="label-text font-semibold">Steps below base</span></label>
+					<input type="number" [value]="stepsBelow()" (input)="onStepsBelowInput($event)" class="input input-bordered" min="0" max="5" />
+				</div>
+			</div>
+
+			<p class="text-xs text-base-content/50">Base font size for rem conversion: {{ converterService.baseFontSize() }}px — adjust in the converter above.</p>
+		</div>
+
+		<!-- Output -->
+		<div class="space-y-5">
+			<!-- Scale table -->
+			<div>
+				<p class="text-sm font-semibold text-base-content mb-3">Scale preview</p>
+				<div class="overflow-x-auto">
+					<table class="table table-zebra table-sm w-full">
+						<thead>
+							<tr>
+								<th>Step</th>
+								<th>px</th>
+								<th>rem</th>
+								<th>Preview</th>
+							</tr>
+						</thead>
+						<tbody>
+							@for (row of rows(); track row.step) {
+								<tr [class.font-bold]="row.step === 0">
+									<td class="font-mono text-primary">--text-{{ row.label }}</td>
+									<td class="font-mono">{{ row.px }}px</td>
+									<td class="font-mono">{{ row.rem }}rem</td>
+									<td>
+										<span [style.font-size.rem]="+(row.rem)" class="text-base-content leading-none">Aa</span>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<!-- CSS output -->
+			<div>
+				<p class="text-sm font-semibold text-base-content mb-3">CSS custom properties</p>
+				<div class="relative">
+					<div class="bg-base-200 rounded-xl p-4 font-mono text-xs text-base-content whitespace-pre leading-relaxed overflow-auto max-h-60">{{ cssOutput() }}</div>
+					<button (click)="copyCss()" class="btn btn-primary btn-sm absolute top-3 right-3">
+						{{ copied() ? '✓ Copied' : 'Copy' }}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

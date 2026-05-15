@@ -49,9 +49,10 @@
 		</div>
 		<!-- Converter Type Selection -->
 		<div class="bg-base-100 rounded-3xl shadow-xl border-base-200 p-8">
-			<div class="mb-6">
-				<label class="block text-lg font-semibold text-base-content mb-3">Converter Type</label>
-				<div class="flex flex-col sm:flex-row gap-4">
+			<!-- Row 1: Converters -->
+			<div class="mb-4">
+				<label class="block text-xs font-semibold text-base-content/50 uppercase tracking-wide mb-3">Converters</label>
+				<div class="flex flex-col sm:flex-row gap-3">
 					<button
 						type="button"
 						[routerLink]="['/single-value']"
@@ -72,61 +73,85 @@
 					</button>
 					<button
 						type="button"
-						[routerLink]="['/framework-presets']"
-						[class.btn-primary]="isActive('framework-presets')"
-						[class.btn-ghost]="!isActive('framework-presets')"
-						class="btn flex-1 gap-2"
-					>
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-							/>
-						</svg>
-						Framework Presets
-					</button>
-					<button
-						type="button"
 						[routerLink]="['/clamp-generator']"
 						[class.btn-primary]="isActive('clamp-generator')"
 						[class.btn-ghost]="!isActive('clamp-generator')"
-						class="btn flex-1 gap-2"
+						class="btn flex-1"
 					>
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4" />
-						</svg>
 						Clamp Generator
 					</button>
 				</div>
 			</div>
 
-			<!-- Visual Preview Button -->
-			<div class="mt-4 pt-4 border-t border-base-200">
+			<div class="border-t border-base-200 my-4"></div>
+
+			<!-- Row 2: Generators & Reference -->
+			<div class="mb-4">
+				<label class="block text-xs font-semibold text-base-content/50 uppercase tracking-wide mb-3">Generators &amp; Reference</label>
+				<div class="flex flex-col sm:flex-row flex-wrap gap-3">
+					<button
+						type="button"
+						[routerLink]="['/type-scale']"
+						[class.btn-primary]="isActive('type-scale')"
+						[class.btn-ghost]="!isActive('type-scale')"
+						class="btn flex-1"
+					>
+						Type Scale
+					</button>
+					<button
+						type="button"
+						[routerLink]="['/spacing-scale']"
+						[class.btn-primary]="isActive('spacing-scale')"
+						[class.btn-ghost]="!isActive('spacing-scale')"
+						class="btn flex-1"
+					>
+						Spacing Scale
+					</button>
+					<button
+						type="button"
+						[routerLink]="['/media-queries']"
+						[class.btn-primary]="isActive('media-queries')"
+						[class.btn-ghost]="!isActive('media-queries')"
+						class="btn flex-1"
+					>
+						Media Queries
+					</button>
+					<button
+						type="button"
+						[routerLink]="['/multi-base']"
+						[class.btn-primary]="isActive('multi-base')"
+						[class.btn-ghost]="!isActive('multi-base')"
+						class="btn flex-1"
+					>
+						Multi-Base
+					</button>
+				</div>
+			</div>
+
+			<!-- Secondary links -->
+			<div class="mt-4 pt-4 border-t border-base-200 flex flex-wrap gap-6">
 				<button
 					type="button"
 					[routerLink]="['/visual-preview']"
 					[class.text-primary]="isActive('visual-preview')"
 					class="group flex items-center gap-2 text-base-content/70 hover:text-primary transition-colors"
 				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="h-5 w-5 transition-transform group-hover:scale-110"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-					>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-						/>
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
 					</svg>
-					<span>Visual Size Preview</span>
-					<span class="text-xs ml-2 text-base-content/50 group-hover:text-primary/60">See how different REM values look</span>
+					<span>Visual Preview</span>
+				</button>
+				<button
+					type="button"
+					[routerLink]="['/framework-presets']"
+					[class.text-primary]="isActive('framework-presets')"
+					class="group flex items-center gap-2 text-base-content/70 hover:text-primary transition-colors"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+					</svg>
+					<span>Framework Presets</span>
 				</button>
 			</div>
 		</div>

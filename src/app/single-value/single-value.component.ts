@@ -4,6 +4,16 @@ import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/cor
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConverterService } from '../converter.service';
 
+interface ConversionHistoryEntry {
+	rem: string;
+	px: string;
+	base: number;
+	timestamp: number;
+}
+
+const HISTORY_KEY = 'conversionHistory';
+const MAX_HISTORY = 20;
+
 @Component({
 	selector: 'app-single-value',
 	imports: [],
@@ -17,6 +27,8 @@ export class SingleValueComponent implements OnInit {
 	resultCopied = signal<boolean>(false);
 	cssVarCopied = signal<boolean>(false);
 	urlCopied = signal<boolean>(false);
+	showHistory = signal<boolean>(false);
+	history = signal<ConversionHistoryEntry[]>(this.loadHistory());
 
 	constructor(public converterService: ConverterService, private route: ActivatedRoute, private router: Router) {}
 
@@ -47,6 +59,27 @@ export class SingleValueComponent implements OnInit {
 		this.router.navigate([], { queryParams, replaceUrl: true });
 	}
 
+	private loadHistory(): ConversionHistoryEntry[] {
+		try {
+			return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? '[]');
+		} catch {
+			return [];
+		}
+	}
+
+	private saveEntry(rem: string, px: string) {
+		if (!rem || !px) return;
+		const entry: ConversionHistoryEntry = {
+			rem,
+			px,
+			base: this.converterService.baseFontSize(),
+			timestamp: Date.now()
+		};
+		const updated = [entry, ...this.history().filter((h) => !(h.rem === rem && h.px === px && h.base === entry.base))].slice(0, MAX_HISTORY);
+		this.history.set(updated);
+		localStorage.setItem(HISTORY_KEY, JSON.stringify(updated));
+	}
+
 	handleInputChange(event: Event, isFirstInput: boolean) {
 		const newValue = (event.target as HTMLInputElement).value;
 		const isRemToPx = this.conversionType() === 'remToPx';
@@ -68,6 +101,9 @@ export class SingleValueComponent implements OnInit {
 		}
 
 		this.syncUrl();
+		if (this.remValue() && this.pixelValue()) {
+			this.saveEntry(this.remValue(), this.pixelValue());
+		}
 	}
 
 	setConversionType(type: 'remToPx' | 'pxToRem') {
@@ -98,6 +134,30 @@ export class SingleValueComponent implements OnInit {
 		if (this.conversionType() === 'remToPx' && this.pixelValue()) return `${this.pixelValue()}px`;
 		if (this.conversionType() === 'pxToRem' && this.remValue()) return `${this.remValue()}rem`;
 		return null;
+	}
+
+	toggleHistory() {
+		this.showHistory.update((v) => !v);
+	}
+
+	restoreEntry(entry: ConversionHistoryEntry) {
+		this.remValue.set(entry.rem);
+		this.pixelValue.set(entry.px);
+		this.conversionType.set('remToPx');
+		this.converterService.updateBaseFontSize(entry.base);
+	}
+
+	clearHistory() {
+		this.history.set([]);
+		localStorage.removeItem(HISTORY_KEY);
+	}
+
+	timeAgo(timestamp: number): string {
+		const seconds = Math.floor((Date.now() - timestamp) / 1000);
+		if (seconds < 60) return 'just now';
+		if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+		if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+		return `${Math.floor(seconds / 86400)}d ago`;
 	}
 
 	async copyResult() {

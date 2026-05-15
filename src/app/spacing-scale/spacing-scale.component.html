@@ -1,0 +1,64 @@
+<div class="bg-base-100 rounded-3xl shadow-xl p-8">
+	<div class="mb-6">
+		<h2 class="text-2xl font-bold text-base-content">Spacing Scale Generator</h2>
+		<p class="text-base-content/70 text-sm mt-1">Generate a spacing scale in rem based on a base unit. Output as CSS custom properties or a Tailwind config snippet.</p>
+	</div>
+
+	<!-- Inputs -->
+	<div class="flex flex-col sm:flex-row gap-6 mb-6">
+		<div class="form-control">
+			<label class="label"><span class="label-text font-semibold">Base unit (px)</span></label>
+			<input type="number" [value]="baseUnit()" (input)="onBaseUnitInput($event)" class="input input-bordered w-32" min="1" />
+		</div>
+		<div class="form-control">
+			<label class="label"><span class="label-text font-semibold">Steps (1–20)</span></label>
+			<input type="number" [value]="steps()" (input)="onStepsInput($event)" class="input input-bordered w-32" min="1" max="20" />
+		</div>
+		<div class="form-control">
+			<label class="label"><span class="label-text font-semibold">Output format</span></label>
+			<div class="flex gap-2">
+				<button type="button" (click)="setFormat('css')" [class.btn-primary]="outputFormat() === 'css'" [class.btn-ghost]="outputFormat() !== 'css'" class="btn btn-sm">CSS Vars</button>
+				<button type="button" (click)="setFormat('tailwind')" [class.btn-primary]="outputFormat() === 'tailwind'" [class.btn-ghost]="outputFormat() !== 'tailwind'" class="btn btn-sm">Tailwind</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+		<!-- Preview table -->
+		<div>
+			<p class="text-sm font-semibold text-base-content mb-3">Preview</p>
+			<div class="overflow-x-auto">
+				<table class="table table-zebra table-sm w-full">
+					<thead>
+						<tr>
+							<th>Step</th>
+							<th>px</th>
+							<th>rem</th>
+						</tr>
+					</thead>
+					<tbody>
+						@for (row of rows(); track row.step) {
+							<tr>
+								<td class="font-mono text-base-content/60">{{ row.step }}</td>
+								<td class="font-mono">{{ row.px }}px</td>
+								<td class="font-mono text-primary">{{ row.rem }}rem</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- Output -->
+		<div>
+			<p class="text-sm font-semibold text-base-content mb-3">Generated output</p>
+			<div class="relative">
+				<div class="bg-base-200 rounded-xl p-4 font-mono text-xs text-base-content whitespace-pre leading-relaxed overflow-auto max-h-96">{{ activeOutput() }}</div>
+				<button (click)="copyOutput()" class="btn btn-primary btn-sm absolute top-3 right-3">
+					{{ copied() ? '✓ Copied' : 'Copy' }}
+				</button>
+			</div>
+			<p class="text-xs text-base-content/50 mt-2">Base font size: {{ converterService.baseFontSize() }}px — adjust in the converter above.</p>
+		</div>
+	</div>
+</div>

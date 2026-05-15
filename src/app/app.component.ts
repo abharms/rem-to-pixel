@@ -36,6 +36,9 @@ export class AppComponent {
 		if (route === 'single-value') {
 			return this.activeRoute() === '' || this.activeRoute() === 'single-value';
 		}
+		if (route === 'framework-presets') {
+			return this.activeRoute().startsWith('framework-presets');
+		}
 		return this.activeRoute() === route;
 	}
 }
