@@ -13,6 +13,7 @@ export class AppComponent {
 	activeRoute = signal<string>('');
 	currentYear = new Date().getFullYear();
 	isDark = signal<boolean>(localStorage.getItem('theme') === 'dark');
+	featureRequestSubmitted = signal(false);
 
 	constructor(private router: Router, public converterService: ConverterService) {
 		this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe((e) => {
@@ -30,6 +31,26 @@ export class AppComponent {
 
 	toggleTheme() {
 		this.isDark.update((v) => !v);
+	}
+
+	openFeatureRequestModal(modal: HTMLDialogElement) {
+		this.featureRequestSubmitted.set(false);
+		modal.showModal();
+	}
+
+	submitFeatureRequest(event: Event) {
+		event.preventDefault();
+		const form = event.target as HTMLFormElement;
+		const params = new URLSearchParams();
+		new FormData(form).forEach((value, key) => params.append(key, value as string));
+		fetch('/', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			body: params.toString(),
+		}).then(() => {
+			this.featureRequestSubmitted.set(true);
+			form.reset();
+		});
 	}
 
 	isActive(route: string): boolean {
