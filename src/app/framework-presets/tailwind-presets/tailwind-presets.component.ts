@@ -8,7 +8,6 @@ import { PresetRoutingService } from '../preset-routing.service';
 @Component({
 	selector: 'fp-tailwind-presets',
 	imports: [RouterModule],
-	standalone: true,
 	templateUrl: './tailwind-presets.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

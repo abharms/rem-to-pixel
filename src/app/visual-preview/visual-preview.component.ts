@@ -12,7 +12,6 @@ interface PreviewElement {
 
 @Component({
 	selector: 'app-visual-preview',
-	standalone: true,
 	imports: [CommonModule],
 	templateUrl: './visual-preview.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush

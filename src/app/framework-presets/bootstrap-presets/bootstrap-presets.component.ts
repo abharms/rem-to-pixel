@@ -8,7 +8,6 @@ import { PresetRoutingService } from '../preset-routing.service';
 @Component({
 	selector: 'fp-bootstrap-presets',
 	imports: [RouterModule],
-	standalone: true,
 	templateUrl: './bootstrap-presets.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -13,7 +13,6 @@ interface CopyFormat {
 @Component({
 	selector: 'fp-material-ui-presets',
 	imports: [RouterModule],
-	standalone: true,
 	templateUrl: './material-ui-presets.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

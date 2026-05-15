@@ -5,7 +5,6 @@ import { ConverterService } from '../converter.service';
 
 @Component({
 	selector: 'app-single-value',
-	standalone: true,
 	imports: [],
 	templateUrl: './single-value.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush

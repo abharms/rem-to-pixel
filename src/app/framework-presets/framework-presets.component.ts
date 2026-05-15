@@ -20,7 +20,6 @@ export interface Framework {
 
 @Component({
 	selector: 'app-framework-presets',
-	standalone: true,
 	imports: [CommonModule, RouterModule],
 	templateUrl: './framework-presets.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,15 +1,15 @@
 // app.component.ts
 
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { ConverterService } from './converter.service';
 
 @Component({
 	selector: 'app-root',
-	standalone: true,
 	imports: [RouterModule],
-	templateUrl: './app.component.html'
+	templateUrl: './app.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
 	activeRoute = signal<string>('');

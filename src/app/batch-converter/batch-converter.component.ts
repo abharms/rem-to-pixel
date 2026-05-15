@@ -1,13 +1,13 @@
 // batch-converter/batch-converter.component.ts
 
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ConverterService } from '../converter.service';
 
 @Component({
 	selector: 'app-batch-converter',
-	standalone: true,
 	imports: [],
-	templateUrl: './batch-converter.component.html'
+	templateUrl: './batch-converter.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BatchConverterComponent {
 	conversionType = signal<'remToPx' | 'pxToRem'>('remToPx');
@@ -57,13 +57,13 @@ export class BatchConverterComponent {
 
 		if (this.conversionType() === 'remToPx') {
 			// Convert rem to px
-			converted = converted.replace(/(\d*\.?\d+)rem/g, (match, rems) => {
+			converted = converted.replace(/(\d*\.?\d+)rem/g, (_match, rems) => {
 				const pixels = this.formatNumber(parseFloat(rems) * baseFontSize);
 				return `${pixels}px`;
 			});
 		} else {
 			// Convert px to rem
-			converted = converted.replace(/(\d+)px/g, (match, pixels) => {
+			converted = converted.replace(/(\d+)px/g, (_match, pixels) => {
 				const rems = this.formatNumber(parseInt(pixels) / baseFontSize);
 				return `${rems}rem`;
 			});
