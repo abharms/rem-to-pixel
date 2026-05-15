@@ -5,7 +5,40 @@
 		<div class="text-center">
 			<h1 class="text-5xl font-extrabold text-primary mb-3 text-shadow-md">REM to Pixel Converter</h1>
 			<h2 class="text-lg text-base-content mb-6">Convert REM to pixels quickly and accurately</h2>
-			<a href="/blog" class="text-primary hover:text-primary text-lg underline">Check out the blog</a>
+			<div class="flex items-center justify-center gap-6 flex-wrap">
+				<a href="/blog" class="text-primary text-lg underline">Check out the blog</a>
+				<button class="btn btn-ghost btn-sm" (click)="featureRequestModal.showModal()">Request a feature</button>
+				<a href="https://buymeacoffee.com/travelhitshard" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-semibold px-4 py-2 rounded-xl transition-colors text-sm">
+					<span>☕</span> Buy me a coffee
+				</a>
+			</div>
+
+			<!-- Feature Request Modal -->
+			<dialog #featureRequestModal class="modal">
+				<div class="modal-box">
+					<h3 class="text-lg font-semibold text-base-content mb-1">Request a Feature</h3>
+					<p class="text-base-content/70 text-sm mb-6">Have an idea? Let us know and we'll consider it for a future update.</p>
+					<form name="feature-request" data-netlify="true" netlify-honeypot="bot-field" class="space-y-4">
+						<input type="hidden" name="form-name" value="feature-request" />
+						<input type="hidden" name="bot-field" />
+						<div class="form-control">
+							<label class="label"><span class="label-text">Email</span></label>
+							<input type="email" name="email" placeholder="you@example.com" class="input input-bordered w-full" required />
+						</div>
+						<div class="form-control">
+							<label class="label"><span class="label-text">Feature request</span></label>
+							<textarea name="message" placeholder="Describe the feature you'd like..." class="textarea textarea-bordered w-full h-28" required></textarea>
+						</div>
+						<div class="flex justify-end gap-3">
+							<button type="button" class="btn btn-ghost" (click)="featureRequestModal.close()">Cancel</button>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</form>
+				</div>
+				<form method="dialog" class="modal-backdrop">
+					<button>close</button>
+				</form>
+			</dialog>
 		</div>
 		<!-- Converter Type Selection -->
 		<div class="bg-base-100 rounded-3xl shadow-xl border-base-200 p-8">
